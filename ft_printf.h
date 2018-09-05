@@ -8,6 +8,24 @@
 # include <wchar.h>
 # include <stdint.h>
 
+#define  VALID(x) x == 's' || x == 'S' || x == 'p' || x == 'd' || x == 'D' || x == 'i' || x == 'o' || x == 'O' \
+|| x == 'u' || x == 'U' || x == 'x' || x == 'X' || x == 'c' || x == 'C' || x == '%' || x == ' ' || x == 'l' || \
+ x == 'h' || x == 'j' || x == 'z' || (x >= '0' && x <= '9') || x == 'h'\
+ || x == '.' || x == '$' || x == '+' ||  x == '#' || x == '-' || x == '*'
+
+#define  FLAGS(x) x == '0' || x == '+' || x == '-' \
+    || x == ' ' || x == '#'
+
+#define  SIZE(x) x == 'h' || x == 'l' || \
+            x == 'j' || x == 'z'
+
+#define  SIZE_F(x) x != 'h' && x != 'l' && x != 'j' && x != 'z'
+
+#define  SPEC(x) x == 'd' || x == 'i' || x == 'c' \
+    || x == 's' || x == 'o' || x == 'x' \
+    || x == 'X' || x == 'p' || x == 'D' \
+    || x == 'u' || x == 'U' || x == 'O' \
+    || x == 'C' || x == 'S'
 
 #define  TYPET(x) x == 's' || x == 'S' || x == 'p' || x == 'd' || x == 'D' || x == 'i' || x == 'o' || x == 'O' \
 || x == 'u' || x == 'U' || x == 'x' || x == 'X' || x == 'c' || x == 'C' || x == '\0' || x == '%'

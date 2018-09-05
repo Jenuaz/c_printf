@@ -8,12 +8,7 @@
 
 int main(void)
 {
-
-    ft_printf("%2.2o|\n", 9223);
-    printf("%2.2o|\n", 9223);
-
-
-//     ft_printf("%x\n", 42);
+//     ft_printf("%#+10.10llx\n", 42);
 //     ft_printf("%X\n", 42);
 //     ft_printf("%x\n", 0);
 //     ft_printf("%X\n", 0);

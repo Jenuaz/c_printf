@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/Users/ylisyak/Documents/ft_printf/ft_printf/ft_printf.c" "/Users/ylisyak/Documents/ft_printf/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_printf.c.o"
-  "/Users/ylisyak/Documents/ft_printf/ft_printf/ft_put_count.c" "/Users/ylisyak/Documents/ft_printf/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_put_count.c.o"
-  "/Users/ylisyak/Documents/ft_printf/ft_printf/hex.c" "/Users/ylisyak/Documents/ft_printf/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/hex.c.o"
-  "/Users/ylisyak/Documents/ft_printf/ft_printf/main.c" "/Users/ylisyak/Documents/ft_printf/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/main.c.o"
-  "/Users/ylisyak/Documents/ft_printf/ft_printf/octal.c" "/Users/ylisyak/Documents/ft_printf/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/octal.c.o"
-  "/Users/ylisyak/Documents/ft_printf/ft_printf/parsing.c" "/Users/ylisyak/Documents/ft_printf/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/parsing.c.o"
+  "/Users/ylisyak/Documents/printf/ft_printf.c" "/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_printf.c.o"
+  "/Users/ylisyak/Documents/printf/ft_put_count.c" "/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_put_count.c.o"
+  "/Users/ylisyak/Documents/printf/hex.c" "/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles/ft_printf.dir/hex.c.o"
+  "/Users/ylisyak/Documents/printf/main.c" "/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles/ft_printf.dir/main.c.o"
+  "/Users/ylisyak/Documents/printf/octal.c" "/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles/ft_printf.dir/octal.c.o"
+  "/Users/ylisyak/Documents/printf/parsing.c" "/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles/ft_printf.dir/parsing.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

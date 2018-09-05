@@ -75,12 +75,10 @@ void    ft_color_base(t_printf *base)
 }
 
 void    ft_core(t_printf base) {
-    int         tmp;
-
     while (*base.m_content) {
         if (*base.m_content == '%') {
             ++base.m_content;
-            (!*base.m_content) ? 0 : (base.sizeReturn += tmp = parsing(&base, base.m_content));
+            (!*base.m_content) ? 0 : parsing(&base, base.m_content);
             base.sizeReturn -= (base.skip + 2);
         } else if (*base.m_content == '\33')
             ft_color_base(&base);
@@ -102,7 +100,6 @@ int	ft_printf(char *fmt, ...)
 	va_start(base.first_arg, fmt);
 	va_copy(base.itera_arg ,base.first_arg);
 	base.m_content = fmt;
-    base.sizeReturn = ft_strlens(base.m_content);
     ft_core(base);
     va_end(base.first_arg);
     va_end(base.itera_arg);

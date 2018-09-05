@@ -100,16 +100,15 @@ int ft_review(char **s, t_printf *base)
 
 void	help_fill_recogn(t_printf *base)
 {
-	if (*base->m_content && TYPESTO(base->specifier))
+	if (*base->m_content && TYPESTO(*base->m_content) && SIZE_F(*base->m_content))
 	{
 		if (((*base->m_content > 48 && *base->m_content <= 57) || (*base->m_content == '*')) && base->precision != 1 && base->width != 1 && ft_review(&base->m_content, base))
 			(*base->m_content == '*') ? (base->width = (int)va_arg(base->first_arg, int)) : (base->width = uni_dig_fill(&base->m_content));
         (*base->m_content == 46) ? (base->precision = 1 && (base->check_point = 1)) : 0;
 		if (((*base->m_content > 48 && *base->m_content <= 57) || (*base->m_content == '*')) && base->precision == 1)
             (*base->m_content == '*') ? (base->precision = (int)va_arg(base->first_arg, int)) : (base->precision = uni_dig_fill(&base->m_content));
-		if (TYPET(*base->m_content))
-			base->specifier = *base->m_content;
-		base->m_content++;
+		if (TYPESTO(*base->m_content) && SIZE_F(*base->m_content))
+			base->m_content++;
 		help_fill_recogn(base);
 	}
 }
@@ -142,20 +141,49 @@ int     ft_str_search_from(t_printf *base, char *what)
 
 void	parse_flags(t_printf *base)
 {
-	while ((base->x = ft_str_search_from(base, "# +-0")) > -1) {
-		base->flag |= (1 << base->x);
-        base->m_content++;
-    }
-    base->check_point_two = 1;
-	while ((base->x = (ft_str_search_from(base, "lhjz") + 5)) > -1 && *base->m_content) {
-		if (*base->m_content == 'l' && !(base->length & F_LONG))
-		(*(++base->m_content) == 'l') ? (base->length |= (1 << (base->x + 1))) : (base->length |= (1 << base->x));
-		if (*base->m_content == 'h')
-		((*base->m_content == 'h') && !(base->length & F_SHORT)) ? (base->length |= (1 << (base->x + 1))) : (base->length |= (1 << (base->x + 2)));
-		(*base->m_content == 'j') ? (base->length |= (1 << (base->x + 2))) : 0;
-		(*base->m_content == 'z') ? (base->length |= (1 << (base->x + 2))): 0;
-		base->m_content++;
-	}
+	while (1)
+	{
+		if (FLAGS(*base->m_content))
+		{
+			while (FLAGS(*base->m_content))
+			{
+				base->flag |= (1 << ft_str_search_from(base, "# +-0"));
+				base->m_content++;
+			}
+			continue ;
+		}
+		if (ft_isdigit(*base->m_content)) {
+			help_fill_recogn(base);
+			continue ;
+		}
+		if (SIZE(*base->m_content)) {
+			while ((base->x = (ft_str_search_from(base, "lhjz") + 5)) > -1 && *base->m_content && SIZE(*base->m_content)) {
+				if (*base->m_content == 'l' && !(base->length & F_LONG))
+					(*(++base->m_content) == 'l') ? (base->length |= (1 << (base->x + 1))) : (base->length |= (1
+							<< base->x));
+				if (*base->m_content == 'h')
+					((*base->m_content == 'h') && !(base->length & F_SHORT)) ? (base->length |= (1 << (base->x + 1)))
+																			 : (base->length |= (1 << (base->x + 2)));
+				(*base->m_content == 'j') ? (base->length |= (1 << (base->x + 2))) : 0;
+				(*base->m_content == 'z') ? (base->length |= (1 << (base->x + 2))) : 0;
+				base->m_content++;
+			}
+			continue ;
+		}
+		if (SPEC(*base->m_content)) {
+			base->specifier = *base->m_content;
+		}
+		else
+		{
+				base->width -= 1;
+				while (base->width >= 0 && !(base->flag & F_MINUS) && base->width--)
+					(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+				ft_put_count(*base->m_content, base);
+				while (base->width-- && base->width >= 0 && (base->flag & F_MINUS))
+					ft_put_count(' ', base);
+		}
+		return ;
+		}
 }
 
 void	corrector_size(t_printf *base) {
@@ -589,12 +617,12 @@ void	out_results(t_printf *base)
 		out_put_int(base);
     else if (base->specifier == 'x' || base->specifier == 'X')
         ft_hex_out_put(base);
+	else if (base->specifier == 'o' || base->specifier == 'O')
+		ft_oct_out_put(base);
 //    else if (base->specifier == 'c')
 //		out_put_char(base);
 //	else if (base->specifier == 's')
 //		out_put_string(base);
-	else if (base->specifier == 'o' || base->specifier == 'O')
-		ft_oct_out_put(base);
 //	else if (new->type == 'p')
 //		showptr(new, va);
 //	else if (new->type == 'u' || new->type == 'U')
@@ -607,10 +635,7 @@ int	parsing(t_printf *base, char *fmt)
 	base->flag = 0;
 	parse_flags(base);
 	base->m_content = fmt;
-    help_fill_recogn(base);
-	base->m_content = fmt;
 	corrector_size(base);
-	chars_for_skip(base->m_content, base);
 	out_results(base);
     return (base->size_teml);
 }
