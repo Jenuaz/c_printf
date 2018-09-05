@@ -1,8 +1,4 @@
 
-#include <string.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <wchar.h>
 #include "ft_printf.h"
 
 int		ft_tolower(int c)
@@ -100,15 +96,22 @@ int ft_review(char **s, t_printf *base)
 
 void	help_fill_recogn(t_printf *base)
 {
-	if (*base->m_content && TYPESTO(*base->m_content) && SIZE_F(*base->m_content))
+	if (TYPESTO(*base->m_content) && (ft_isdigit(*base->m_content) || *base->m_content == 46 || *base->m_content == '*') && SIZE_F(*base->m_content))
 	{
-		if (((*base->m_content > 48 && *base->m_content <= 57) || (*base->m_content == '*')) && base->precision != 1 && base->width != 1 && ft_review(&base->m_content, base))
-			(*base->m_content == '*') ? (base->width = (int)va_arg(base->first_arg, int)) : (base->width = uni_dig_fill(&base->m_content));
-        (*base->m_content == 46) ? (base->precision = 1 && (base->check_point = 1)) : 0;
-		if (((*base->m_content > 48 && *base->m_content <= 57) || (*base->m_content == '*')) && base->precision == 1)
-            (*base->m_content == '*') ? (base->precision = (int)va_arg(base->first_arg, int)) : (base->precision = uni_dig_fill(&base->m_content));
-		if (TYPESTO(*base->m_content) && SIZE_F(*base->m_content))
-			base->m_content++;
+        if (*(base->m_content) != 46) {
+            if ((ft_isdigit(*base->m_content) || (*base->m_content == '*'))  &&
+                ft_review(&base->m_content, base))
+                (*base->m_content == '*') ? (base->width = (int) va_arg(base->first_arg, int))
+                                          : (base->width = uni_dig_fill(&base->m_content));
+        }
+        if (*(base->m_content) == 46) {
+            base->m_content++;
+            if ((ft_isdigit(*base->m_content) || (*base->m_content == '*')) && base->precision == 1)
+                (*base->m_content == '*') ? (base->precision = (int) va_arg(base->first_arg, int))
+                                          : (base->precision = uni_dig_fill(&base->m_content));
+            else
+                base->precision = 0;
+        }
 		help_fill_recogn(base);
 	}
 }
@@ -152,21 +155,20 @@ void	parse_flags(t_printf *base)
 			}
 			continue ;
 		}
-		if (ft_isdigit(*base->m_content)) {
+		if (ft_isdigit(*base->m_content) || *base->m_content == '.' || *base->m_content == '*') {
 			help_fill_recogn(base);
 			continue ;
 		}
 		if (SIZE(*base->m_content)) {
 			while ((base->x = (ft_str_search_from(base, "lhjz") + 5)) > -1 && *base->m_content && SIZE(*base->m_content)) {
 				if (*base->m_content == 'l' && !(base->length & F_LONG))
-					(*(++base->m_content) == 'l') ? (base->length |= (1 << (base->x + 1))) : (base->length |= (1
-							<< base->x));
+					(*(base->m_content + 1) == 'l') ? (base->length |= (1 << (base->x + 1))) : (base->length |= (1 << base->x));
 				if (*base->m_content == 'h')
-					((*base->m_content == 'h') && !(base->length & F_SHORT)) ? (base->length |= (1 << (base->x + 1)))
+                    ((*(base->m_content + 1) == 'h') && !(base->length & F_SHORT)) ? (base->length |= (1 << (base->x + 1)))
 																			 : (base->length |= (1 << (base->x + 2)));
 				(*base->m_content == 'j') ? (base->length |= (1 << (base->x + 2))) : 0;
 				(*base->m_content == 'z') ? (base->length |= (1 << (base->x + 2))) : 0;
-				base->m_content++;
+                base->m_content++;
 			}
 			continue ;
 		}
@@ -175,14 +177,14 @@ void	parse_flags(t_printf *base)
 		}
 		else
 		{
-				base->width -= 1;
+				--base->width;
 				while (base->width >= 0 && !(base->flag & F_MINUS) && base->width--)
 					(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
 				ft_put_count(*base->m_content, base);
 				while (base->width-- && base->width >= 0 && (base->flag & F_MINUS))
 					ft_put_count(' ', base);
 		}
-		return ;
+			return ;
 		}
 }
 
@@ -207,34 +209,6 @@ void	corrector_size(t_printf *base) {
 
 /*-------------------------  HELP FUNCTION   ----------------------*/
 
-
-void	ft_putwchar(wchar_t wc)
-{
-
-
-    if (wc <= 127)
-        ft_putchar(wc);
-    else if (wc <= 2047)
-    {
-        ft_putchar((wc >> 6) + 0xC0);
-        ft_putchar((wc & 0x3F) + 0x80);
-    }
-    else if (wc <= 65535)
-    {
-        ft_putchar((wc >> 12) + 0xE0);
-        ft_putchar(((wc >> 6) & 0x3F) + 0x80);
-        ft_putchar((wc & 0x3F) + 0x80);
-    }
-    else if (wc <= 1114111)
-    {
-        ft_putchar((wc >> 18) + 0xF0);
-        ft_putchar(((wc >> 12) & 0x3F) + 0x80);
-        ft_putchar(((wc >> 6) & 0x3F) + 0x80);
-        ft_putchar((wc & 0x3F) + 0x80);
-    }
-}
-
-
 int		ft_padding_space(int times)
 {
 	while (times--)
@@ -258,20 +232,6 @@ size_t		ft_strlen(const char *s)
 	return (i);
 }
 
-int		ft_isascii(int c)
-{
-	if (c >= 0 && c <= 127)
-		return (1);
-	return (0);
-}
-
-void	ft_putchar(char c)
-{
-	if (c || ft_isascii(c))
-		write(1, &c, 1);
-	else
-		write(1, &c, 3);
-}
 
 	static long long int				itoasize(uintmax_t n)
 	{
@@ -604,20 +564,13 @@ void    out_put_string(t_printf *base)
 
 /*---------------------------------------------------------------*/
 
-
-void	chars_for_skip(char *s, t_printf *base)
-{
-	while (TYPESTO(*s) && *s && s++)
-		++base->skip;
-}
-
 void	out_results(t_printf *base)
 {
 	if (base->specifier == 'i' || base->specifier == 'd')
 		out_put_int(base);
-    else if (base->specifier == 'x' || base->specifier == 'X')
+    else if (base->specifier == 'x')
         ft_hex_out_put(base);
-	else if (base->specifier == 'o' || base->specifier == 'O')
+	else if (base->specifier == 'o')
 		ft_oct_out_put(base);
 //    else if (base->specifier == 'c')
 //		out_put_char(base);
@@ -630,11 +583,10 @@ void	out_results(t_printf *base)
 //	rewrite_struct(new);
 }
 
-int	parsing(t_printf *base, char *fmt)
+int	parsing(t_printf *base)
 {
 	base->flag = 0;
 	parse_flags(base);
-	base->m_content = fmt;
 	corrector_size(base);
 	out_results(base);
     return (base->size_teml);

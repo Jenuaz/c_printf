@@ -8,6 +8,6 @@ void      ft_putstr_count(char *s, t_printf *base)
 
 void      ft_put_count(char a, t_printf *base)
 {
-    base->length++;
+    base->sizeReturn++;
     ft_putchar(a);
 }

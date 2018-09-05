@@ -17,7 +17,7 @@ void    ft_bzero(t_printf *base)
     base->nbr_wd_len = 0;
     base->skip = 0;
     base->width = 0;
-    base->precision = 0;
+    base->precision = 1;
     base->flag = 0;
     base->check_point = 0;
     base->check_point_two = 0;
@@ -74,20 +74,17 @@ void    ft_color_base(t_printf *base)
         write(1, RESET_COLOR, ft_strlen(RESET_COLOR));
 }
 
-void    ft_core(t_printf base) {
-    while (*base.m_content) {
-        if (*base.m_content == '%') {
-            ++base.m_content;
-            (!*base.m_content) ? 0 : parsing(&base, base.m_content);
-            base.sizeReturn -= (base.skip + 2);
-        } else if (*base.m_content == '\33')
-            ft_color_base(&base);
+void    ft_core(t_printf *base) {
+    while (*base->m_content) {
+        if (*base->m_content == '%') {
+            ft_bzero(base);
+            ++base->m_content;
+            (!*base->m_content) ? 0 : parsing(base);
+        } else if (*base->m_content == '\33')
+            ft_color_base(base);
         else
-            (*base.m_content == '\n') ? ft_put_count(*base.m_content, &base) : 0;
-        base.m_content++;
-        if (*base.m_content == '%') {
-            ft_bzero(&base);
-        }
+            ft_put_count(*base->m_content, base);
+        (*base->m_content != '\0') ? base->m_content++ : 0;
     }
 }
 
@@ -100,7 +97,7 @@ int	ft_printf(char *fmt, ...)
 	va_start(base.first_arg, fmt);
 	va_copy(base.itera_arg ,base.first_arg);
 	base.m_content = fmt;
-    ft_core(base);
+    ft_core(&base);
     va_end(base.first_arg);
     va_end(base.itera_arg);
     return(base.sizeReturn);

@@ -6,10 +6,13 @@
 # include <unistd.h>
 # include <stdint.h>
 # include <wchar.h>
-# include <stdint.h>
+# include <string.h>
+# include <stdlib.h>
+# include <stddef.h>
+
 
 #define  VALID(x) x == 's' || x == 'S' || x == 'p' || x == 'd' || x == 'D' || x == 'i' || x == 'o' || x == 'O' \
-|| x == 'u' || x == 'U' || x == 'x' || x == 'X' || x == 'c' || x == 'C' || x == '%' || x == ' ' || x == 'l' || \
+|| x == 'u' || x == 'U' || x == 'x' || x == 'X' || x == 'c' || x == 'C' || x == ' ' || x == 'l' || \
  x == 'h' || x == 'j' || x == 'z' || (x >= '0' && x <= '9') || x == 'h'\
  || x == '.' || x == '$' || x == '+' ||  x == '#' || x == '-' || x == '*'
 
@@ -121,9 +124,8 @@ typedef struct		s_printf
 
 
 int     ft_printf(char *fmt, ...);
-int 	parsing(t_printf *base, char *fmt);
+int 	parsing(t_printf *base);
 void	parse_flags(t_printf *base);
-void	ft_putchar(char c);
 int     ft_strlens(char *str);
 size_t		ft_strlen(const char *s);
 
@@ -131,12 +133,12 @@ void    ft_convert(unsigned long long k, int big_spec, t_printf *base);
 void    ft_hex(unsigned long long k, int sys, int b, t_printf *base);
 int        counthex(long long hex, int sys);
 
-void      ft_putstr_count(char *s, t_printf *base);
-
 void    ft_hex_out_put(t_printf *base);
-void      ft_put_count(char a, t_printf *base);
 
-
+void    ft_putstr_count(char *s, t_printf *base);
+void    ft_put_count(char a, t_printf *base);
+void	ft_putwchar(wchar_t wc);
+void	ft_putchar(char c);
 
 void    ft_go_oct(t_printf *base, unsigned long long num);
 void    ft_oct_out_put(t_printf *base);

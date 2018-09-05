@@ -51,7 +51,8 @@ void    ft_go_hex(t_printf *base, unsigned long long num) {
         (base->flag & F_SHARP) && base->heigh ? ft_putstr_count("0X", base) : 0;
         (base->flag & F_SHARP) && !base->heigh ? ft_putstr_count("0x", base) : 0;
     }
-    ft_hex(num, 16, base->heigh, base);
+    if (base->precision != 0)
+        ft_hex(num, 16, base->heigh, base);
     if (base->width > 0 && (base->flag & F_MINUS))
         while (base->width-- && base->width >= 0)
             ft_put_count(' ', base);

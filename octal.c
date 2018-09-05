@@ -24,33 +24,33 @@ void    ft_oct_precision(t_printf *base, unsigned long long num)
         ft_put_count(' ', base);
 }
 
-void    ft_go_oct(t_printf *base, unsigned long long num)
+void    ft_zero(t_printf *base)
 {
+    (base->flag & F_SHARP) && base->heigh ? ft_putstr_count("0", base) : 0;
+    (base->flag & F_SHARP) && !base->heigh ? ft_putstr_count("0", base) : 0;
+}
+
+void    ft_go_oct(t_printf *base, unsigned long long num) {
     int count;
 
-    count = counthex(num,8);
-    if (base->precision > count)
-    {
+    count = counthex(num, 8);
+    if (base->precision > count) {
         ft_oct_precision(base, num);
-        return ;
+        return;
     }
     (base->heigh) ? (base->width -= count + 1) : (base->width -= count);
     if (base->flag & F_ZERO)
-    {
-        (base->flag & F_SHARP) && base->heigh ? ft_putstr_count("0", base) : 0;
-        (base->flag & F_SHARP) && !base->heigh ? ft_putstr_count("0", base) : 0;
-    }
-    if ( base->width > 0 && !(base->flag & F_MINUS))
+        ft_zero(base);
+    if (base->width > 0 && !(base->flag & F_MINUS))
         while (base->width-- && base->width >= 0)
+        {
             if ((base->flag & F_ZERO))
                 ft_put_count('0', base);
             else
                 ft_put_count(' ', base);
-    if (!(base->flag & F_ZERO) && num != 0)
-    {
-        (base->flag & F_SHARP) && base->heigh ? ft_putstr_count("0", base) : 0;
-        (base->flag & F_SHARP) && !base->heigh ? ft_putstr_count("0", base) : 0;
     }
+    if (!(base->flag & F_ZERO) && num != 0)
+        ft_zero(base);
     ft_hex(num, 8, base->heigh, base);
     if (base->width > 0 && (base->flag & F_MINUS))
         while (base->width-- && base->width >= 0)

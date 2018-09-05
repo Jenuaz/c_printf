@@ -150,6 +150,33 @@ ft_printf.c.s:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_printf.c.s
 .PHONY : ft_printf.c.s
 
+ft_put_char.o: ft_put_char.c.o
+
+.PHONY : ft_put_char.o
+
+# target to build an object file
+ft_put_char.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_put_char.c.o
+.PHONY : ft_put_char.c.o
+
+ft_put_char.i: ft_put_char.c.i
+
+.PHONY : ft_put_char.i
+
+# target to preprocess a source file
+ft_put_char.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_put_char.c.i
+.PHONY : ft_put_char.c.i
+
+ft_put_char.s: ft_put_char.c.s
+
+.PHONY : ft_put_char.s
+
+# target to generate assembly for a file
+ft_put_char.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_put_char.c.s
+.PHONY : ft_put_char.c.s
+
 ft_put_count.o: ft_put_count.c.o
 
 .PHONY : ft_put_count.o
@@ -297,6 +324,9 @@ help:
 	@echo "... ft_printf.o"
 	@echo "... ft_printf.i"
 	@echo "... ft_printf.s"
+	@echo "... ft_put_char.o"
+	@echo "... ft_put_char.i"
+	@echo "... ft_put_char.s"
 	@echo "... ft_put_count.o"
 	@echo "... ft_put_count.i"
 	@echo "... ft_put_count.s"

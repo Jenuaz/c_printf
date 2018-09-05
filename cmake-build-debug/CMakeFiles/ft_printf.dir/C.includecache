@@ -23,8 +23,16 @@ stdint.h
 -
 wchar.h
 -
-stdint.h
+string.h
 -
+stdlib.h
+-
+stddef.h
+-
+
+/Users/ylisyak/Documents/printf/ft_put_char.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
 
 /Users/ylisyak/Documents/printf/ft_put_count.c
 ft_printf.h
@@ -45,14 +53,6 @@ ft_printf.h
 /Users/ylisyak/Documents/printf/ft_printf.h
 
 /Users/ylisyak/Documents/printf/parsing.c
-string.h
--
-stdlib.h
--
-stddef.h
--
-wchar.h
--
 ft_printf.h
 /Users/ylisyak/Documents/printf/ft_printf.h
 

@@ -4,6 +4,9 @@
 CMakeFiles/ft_printf.dir/ft_printf.c.o
  /Users/ylisyak/Documents/printf/ft_printf.c
  /Users/ylisyak/Documents/printf/ft_printf.h
+CMakeFiles/ft_printf.dir/ft_put_char.c.o
+ /Users/ylisyak/Documents/printf/ft_printf.h
+ /Users/ylisyak/Documents/printf/ft_put_char.c
 CMakeFiles/ft_printf.dir/ft_put_count.c.o
  /Users/ylisyak/Documents/printf/ft_printf.h
  /Users/ylisyak/Documents/printf/ft_put_count.c

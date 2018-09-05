@@ -86,6 +86,9 @@
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_printf.h">
 			<Option target="ft_printf"/>
 		</Unit>
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_put_char.c">
+			<Option target="ft_printf"/>
+		</Unit>
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_put_count.c">
 			<Option target="ft_printf"/>
 		</Unit>
