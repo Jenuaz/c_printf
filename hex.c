@@ -32,7 +32,12 @@ void    ft_go_hex(t_printf *base, unsigned long long num) {
         ft_hex_precision(base, num);
         return ;
     }
-    (base->flag & F_SHARP) ? (base->width -= count + 2) : (base->width -= count);
+    if (base->flag & F_SHARP && base->precision > 0)
+        base->width -= count + 2;
+    else if (!(base->flag & F_SHARP) && base->precision > 0)
+    {
+        base->width -= count;
+    }
     if (base->flag & F_ZERO)
     {
         (base->flag & F_SHARP) && base->heigh ? ft_putstr_count("0X", base) : 0;

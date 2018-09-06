@@ -9,12 +9,17 @@
 int main(void)
 {
 
+    ft_printf("%#6o", 2500);
+
+//     ft_printf(" %#5.x\n", 0);
+//        printf(" %#5.x\n", 0);
 //    ft_printf("@moulitest: %#.x %#.0x\n", 0, 0);
 //    printf("@moulitest: %#.x %#.0x\n", 0, 0);
-//    ft_printf("%5.x %5.0x", 0, 0);
+//    ft_printf("@moulitest: %5.x %5.0x\n", 0, 0);
+//    printf("@moulitest: %5.x %5.0x\n", 0, 0);
 //    ft_printf("%lx\n", 4294967296);
 //    printf("%lx", 4294967296);
-//
+
 //      printf("%d\n", ft_printf("%x\n", 10));
 //    ft_printf("%#+10.10llx\n", 42);
 //    ft_printf("%X\n", 42);
