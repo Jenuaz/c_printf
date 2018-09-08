@@ -11,4 +11,5 @@ add_executable(ft_printf
         hex.c
         ft_put_count.c
         octal.c
-        ft_put_char.c)
+        ft_put_char.c
+        ft_char.c)

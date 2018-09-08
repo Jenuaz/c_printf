@@ -12,7 +12,7 @@
 
 NAME = libftprintf.a
 
-SRC = parsing.c ft_printf.c hex.c ft_put_count.c ft_put_char.c octal.c
+SRC = parsing.c ft_printf.c hex.c ft_put_count.c ft_put_char.c octal.c ft_char.c
 
 HEADER = ft_printf.h
 

@@ -17,7 +17,7 @@ void    ft_bzero(t_printf *base)
     base->nbr_wd_len = 0;
     base->skip = 0;
     base->width = 0;
-    base->precision = 1;
+    base->precision = -1;
     base->flag = 0;
     base->check_point = 0;
     base->check_point_two = 0;

@@ -144,4 +144,14 @@ void    ft_go_oct(t_printf *base, unsigned long long num);
 void    ft_oct_out_put(t_printf *base);
 
 
+/*----------------OUTPUT CHAR-----------*/
+void	out_put_char(t_printf *base);
+void    ft_putchar_mod(t_printf *base, unsigned int octet);
+
+
+int     s_c_bits_lens(unsigned int nbr);
+
+int		ft_padding_space(int times, t_printf *base);
+void		ft_padding_zero(int times, t_printf *base);
+
 #endif

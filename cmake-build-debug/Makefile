@@ -123,6 +123,33 @@ ft_printf/fast:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/build
 .PHONY : ft_printf/fast
 
+ft_char.o: ft_char.c.o
+
+.PHONY : ft_char.o
+
+# target to build an object file
+ft_char.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_char.c.o
+.PHONY : ft_char.c.o
+
+ft_char.i: ft_char.c.i
+
+.PHONY : ft_char.i
+
+# target to preprocess a source file
+ft_char.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_char.c.i
+.PHONY : ft_char.c.i
+
+ft_char.s: ft_char.c.s
+
+.PHONY : ft_char.s
+
+# target to generate assembly for a file
+ft_char.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_char.c.s
+.PHONY : ft_char.c.s
+
 ft_printf.o: ft_printf.c.o
 
 .PHONY : ft_printf.o
@@ -321,6 +348,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... ft_printf"
+	@echo "... ft_char.o"
+	@echo "... ft_char.i"
+	@echo "... ft_char.s"
 	@echo "... ft_printf.o"
 	@echo "... ft_printf.i"
 	@echo "... ft_printf.s"

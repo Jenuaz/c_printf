@@ -106,7 +106,7 @@ void	help_fill_recogn(t_printf *base)
         }
         if (*(base->m_content) == 46) {
             base->m_content++;
-            if ((ft_isdigit(*base->m_content) || (*base->m_content == '*')) && base->precision == 1)
+            if ((ft_isdigit(*base->m_content) || (*base->m_content == '*')) && base->precision == -1)
                 (*base->m_content == '*') ? (base->precision = (int) va_arg(base->first_arg, int))
                                           : (base->precision = uni_dig_fill(&base->m_content));
             else
@@ -129,8 +129,8 @@ int     ft_str_search_from(t_printf *base, char *what)
 		{
 			if (*where == what[j])
 			{
-				where--;
-				if ((base->check_point_two == 1 || (!ft_isdigit(*where)) || (base->flag & F_ZERO && base->width == 0 && base->precision == 0)) && *where != '.')
+				//where--;
+				//if ((base->check_point_two == 1  (base->flag & F_ZERO && base->width == 0 && base->precision == 0)) && *where != '.')
 					return (j);
 				where++;
 			}
@@ -209,17 +209,17 @@ void	corrector_size(t_printf *base) {
 
 /*-------------------------  HELP FUNCTION   ----------------------*/
 
-int		ft_padding_space(int times)
+int		ft_padding_space(int times, t_printf *base)
 {
 	while (times--)
-		write(1, " ", 1);
+        ft_put_count('0', base);
     return (1);
 }
 
-void		ft_padding_zero(int times)
+void		ft_padding_zero(int times, t_printf *base)
 {
 	while (times--)
-		write(1, "0", 1);
+		ft_put_count('0', base);
 }
 
 size_t		ft_strlen(const char *s)
@@ -341,25 +341,25 @@ void	ft_putnbr_mod(t_printf *base, intmax_t nbr)
 	if (base->width > base->nbr_wd_len && base->precision <= base->nbr_wd_len) {
         (base->check_point == 1 && nbr == 0) ? (tmpl = (base->width - base->nbr_wd_len) + 1) : (base->flag & F_PLUS && base->x != 1) \
  ? (tmpl = (base->width - base->nbr_wd_len) - 1) : (tmpl = base->width - base->nbr_wd_len);
-		(((base->flag & F_MINUS) || ((base->flag & F_SPACE) || (base->flag & F_ZERO))) ?  0 : ft_padding_space(tmpl));
+		(((base->flag & F_MINUS) || ((base->flag & F_SPACE) || (base->flag & F_ZERO))) ?  0 : ft_padding_space(tmpl, base));
 		if (base->flag & F_PLUS || base->x == 1)
 			(nbr >= 0 && base->x != 1) ? write(1, "+", 1) : write(1, "-", 1);
-		((base->flag & F_ZERO) && !(base->flag & F_MINUS)) ? ft_padding_zero(tmpl):0;
-		(base->flag & F_SPACE) ? ft_padding_space(1) : 0;
+		((base->flag & F_ZERO) && !(base->flag & F_MINUS)) ? ft_padding_zero(tmpl, base):0;
+		(base->flag & F_SPACE) ? ft_padding_space(1, base) : 0;
 		//ft_putnbr(nbr);
         base->size_teml = base->width;
         while (tmpl_nul--)
             write(1, "0", 1);
         (base->check_point == 1 && nbr == 0) ? 0 : ft_putnbr(nbr);
-		(base->flag & F_MINUS) ? (base->flag & F_SPACE) ? ft_padding_space(tmpl-1) : ft_padding_space(tmpl) : 0;
+		(base->flag & F_MINUS) ? (base->flag & F_SPACE) ? ft_padding_space(tmpl-1, base) : ft_padding_space(tmpl, base) : 0;
 		base->m_content = base->m_content + base->skip;
 
 	}
 	else if (base->width > base->nbr_wd_len && base->precision > base->nbr_wd_len && base->precision < base->width)
 	{
 		tmpl = base->width - base->precision;
-        ((base->flag & F_SPACE && (tmpl == 0 || base->flag & F_MINUS)) && (base->width - base->precision - base->nbr_wd_len) > 0) ? ft_padding_space(1) : 0;
-        (base->flag & F_MINUS) ? 0 : ft_padding_space((base->flag & F_PLUS || base->x == 1) ? (tmpl - 1) : tmpl);
+        ((base->flag & F_SPACE && (tmpl == 0 || base->flag & F_MINUS)) && (base->width - base->precision - base->nbr_wd_len) > 0) ? ft_padding_space(1,base) : 0;
+        (base->flag & F_MINUS) ? 0 : ft_padding_space((base->flag & F_PLUS || base->x == 1) ? (tmpl - 1) : tmpl, base);
         // fix in future     FIXANUL BLYA
 		if (base->flag & F_PLUS || base->x == 1)
 			(nbr >= 0 && base->x != 1) ? write(1, "+", 1) : write(1, "-", 1);
@@ -368,14 +368,14 @@ void	ft_putnbr_mod(t_printf *base, intmax_t nbr)
         base->size_teml = base->width;
         (base->check_point == 1 && nbr == 0) ? 0 : ft_putnbr(nbr);
 	//	ft_putnbr(nbr);
-		(base->flag & F_MINUS ) ? ft_padding_space((base->flag & F_PLUS || base->x == 1 || base->flag & F_SPACE) ? (tmpl - 1) : tmpl) : 0; //&& !(base->flag & F_SPACE)
+		(base->flag & F_MINUS ) ? ft_padding_space((base->flag & F_PLUS || base->x == 1 || base->flag & F_SPACE) ? (tmpl - 1) : tmpl, base) : 0; //&& !(base->flag & F_SPACE)
 //        (base->flag & F_MINUS ) ? ft_padding_space((base->flag & F_PLUS || base->x == 1) ? (tmpl - 1 - tmplsv) : tmpl - (--tmplsv)) : 0;
 //        (base->flag & F_SPACE) ? ft_padding_space(1) : 0;
 		base->m_content = base->m_content + base->skip;
 	}
 	else {
-        (base->flag & F_SPACE && !(base->flag & F_ZERO) && !(base->flag & F_PLUS) && (base->x != 1) ) ? (base->sizeReturn += 1) && ft_padding_space(1) : 0;
-		((base->flag & F_ZERO) && base->precision == 0) ? (base->nbr_wd_len > base->width)? 0 : ft_padding_zero(1) : 0;
+        (base->flag & F_SPACE && !(base->flag & F_ZERO) && !(base->flag & F_PLUS) && (base->x != 1) ) ? (base->sizeReturn += 1) && ft_padding_space(1, base) : 0;
+		((base->flag & F_ZERO) && base->precision == 0) ? (base->nbr_wd_len > base->width)? 0 : ft_padding_zero(1, base) : 0;
 		if (base->flag & F_PLUS || base->x == 1)
 			(nbr >= 0 && base->x != 1) ? write(1, "+", 1) && (base->sizeReturn += 1) : write(1, "-", 1) && (base->x != 1) ? (base->sizeReturn += 1) : (base->nbr_wd_len < base->precision) ? (base->sizeReturn += 1) : 0;
 		while (tmpl_nul-- )
@@ -441,35 +441,6 @@ int     s_c_bits_lens(unsigned int nbr)
 }
 
 
-void    ft_putchar_mod(t_printf *base, unsigned int octet)
-{
-    int 	tmpl;
-    int 	tmpl_nul;
-
-    tmpl_nul = base->width - base->nbr_wd_len;
-
-    (base->width > base->nbr_wd_len) ? (tmpl = base->width - base->nbr_wd_len) : (tmpl = 0);
-        (base->flag & F_MINUS || base->flag & F_ZERO) ? 0 : ft_padding_space(tmpl);
-        if (tmpl_nul > 0 && (base->flag & F_ZERO) && !(base->flag & F_MINUS))
-            while (tmpl_nul--)
-                write(1, "0", 1);
-        ft_putwchar(octet);
-        (base->flag & F_MINUS && !(base->flag & F_SPACE)) ? ft_padding_space(tmpl) : 0;
-        base->m_content = base->m_content + base->skip;
-}
-
-
-void	out_put_char(t_printf *base) {
-    wchar_t chr;
-
-    if (base->length & F_LONG)
-       chr = (wchar_t)va_arg(base->first_arg, wint_t);
-    else
-        chr = (char)va_arg(base->first_arg, int);
-        base->nbr_wd_len = s_c_bits_lens(chr);
-        ft_putchar_mod(base, chr);
-}
-
 /*---------------------------------------------------------------*/
 /*---------------------------- OUT_PUT_STRING -------------------*/
 
@@ -512,12 +483,12 @@ void    ft_putwstring_mod(t_printf *base, wchar_t *octet)
     tmpl_nul = base->width - base->nbr_wd_len;
 
     (base->width > base->nbr_wd_len) ? (tmpl = base->width - base->nbr_wd_len) : (tmpl = 0);
-    (base->flag & F_MINUS || base->flag & F_ZERO) ? 0 : ft_padding_space(tmpl);
+    (base->flag & F_MINUS || base->flag & F_ZERO) ? 0 : ft_padding_space(tmpl, base);
     if (tmpl_nul > 0 && (base->flag & F_ZERO) && !(base->flag & F_MINUS))
         while (tmpl_nul--)
-            write(1, "0", 1);
+            ft_put_count('0', base);
     ft_putwstr(octet);
-    (base->flag & F_MINUS && !(base->flag & F_SPACE)) ? ft_padding_space(tmpl) : 0;
+    (base->flag & F_MINUS && !(base->flag & F_SPACE)) ? ft_padding_space(tmpl, base) : 0;
     if (base->nbr_wd_len < base->width)
         base->size_teml = base->width;
     if (base->nbr_wd_len > base->width)
@@ -533,12 +504,12 @@ void    ft_putstring_mod(t_printf *base, char *octet)
     tmpl_nul = base->width - base->nbr_wd_len;
 
     (base->width > base->nbr_wd_len) ? (tmpl = base->width - base->nbr_wd_len) : (tmpl = 0);
-    (base->flag & F_MINUS || base->flag & F_ZERO) ? 0 : ft_padding_space(tmpl);
+    (base->flag & F_MINUS || base->flag & F_ZERO) ? 0 : ft_padding_space(tmpl, base);
     if (tmpl_nul > 0 && (base->flag & F_ZERO) && !(base->flag & F_MINUS))
         while (tmpl_nul--)
-            write(1, "0", 1);
+            ft_put_count('0', base);
     ft_putstr(octet);
-    (base->flag & F_MINUS && !(base->flag & F_SPACE)) ? ft_padding_space(tmpl) : 0;
+    (base->flag & F_MINUS && !(base->flag & F_SPACE)) ? ft_padding_space(tmpl, base) : 0;
     if (base->nbr_wd_len < base->width)
         base->size_teml = base->width;
     if (base->nbr_wd_len > base->width)
@@ -572,10 +543,10 @@ void	out_results(t_printf *base)
         ft_hex_out_put(base);
 	else if (base->specifier == 'o')
 		ft_oct_out_put(base);
-//    else if (base->specifier == 'c')
-//		out_put_char(base);
-//	else if (base->specifier == 's')
-//		out_put_string(base);
+    else if (base->specifier == 'c')
+		out_put_char(base);
+	else if (base->specifier == 's')
+		out_put_string(base);
 //	else if (new->type == 'p')
 //		showptr(new, va);
 //	else if (new->type == 'u' || new->type == 'U')

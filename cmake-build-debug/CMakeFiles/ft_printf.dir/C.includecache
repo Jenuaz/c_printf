@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/Users/ylisyak/Documents/printf/ft_char.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
+
 /Users/ylisyak/Documents/printf/ft_printf.c
 strings.h
 -
