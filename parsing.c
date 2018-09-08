@@ -212,7 +212,7 @@ void	corrector_size(t_printf *base) {
 int		ft_padding_space(int times, t_printf *base)
 {
 	while (times--)
-        ft_put_count('0', base);
+        ft_put_count(' ', base);
     return (1);
 }
 
@@ -444,11 +444,6 @@ int     s_c_bits_lens(unsigned int nbr)
 /*---------------------------------------------------------------*/
 /*---------------------------- OUT_PUT_STRING -------------------*/
 
-void    ft_putstr(char *str)
-{
-    while (*str)
-        write(1, str++, 1);
-}
 
 void    ft_putwstr(wchar_t *chare)
 {
@@ -508,7 +503,7 @@ void    ft_putstring_mod(t_printf *base, char *octet)
     if (tmpl_nul > 0 && (base->flag & F_ZERO) && !(base->flag & F_MINUS))
         while (tmpl_nul--)
             ft_put_count('0', base);
-    ft_putstr(octet);
+    ft_putstr_count(octet, base);
     (base->flag & F_MINUS && !(base->flag & F_SPACE)) ? ft_padding_space(tmpl, base) : 0;
     if (base->nbr_wd_len < base->width)
         base->size_teml = base->width;

@@ -9,6 +9,10 @@
 int main(void)
 {
 
+    ft_printf("%.2s is a string\n", "this");
+    printf("%.2s is a string\n", "this");
+
+
 //
 //    printf("------------------- Check printf -------------------- \n");
 //    ft_printf("%+lld", 4242424242424242424242);
