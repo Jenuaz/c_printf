@@ -55,12 +55,12 @@
 
 /*----------------------------------------------------------------------------------------------------------*/
 /*                                                          d i                   u o x X                   */
-# define F_LONG			(1 << 5)               //  l     (long int)           (unsigned long int)
-# define F_LONG2		(1 << 6)               //  ll    (long long int)      (unsigned long long int)
-# define F_SHORT		(1 << 7)               //  h     (short  int)
-# define F_SHORT2		(1 << 8)               //  hh    (signed char)
-# define F_INTMAX		(1 << 9)               //  j     (intmax_t)
-# define F_SIZE_T		(1 << 10)              //  z     (size_t)
+# define F_LONG			(1 << 5)               //  l     (long int)           (unsigned long int)          32
+# define F_LONG2		(1 << 6)               //  ll    (long long int)      (unsigned long long int)     64
+# define F_SHORT		(1 << 7)               //  h     (short  int)                                      128
+# define F_SHORT2		(1 << 8)               //  hh    (signed char)                                     256
+# define F_INTMAX		(1 << 9)               //  j     (intmax_t)                                        512
+# define F_SIZE_T		(1 << 10)              //  z     (size_t)                                          1024
 
 
 /*-------------------------------------- COLOR MASKS -----------------------------------------------------*/
@@ -70,7 +70,7 @@
 # define    GREEN       "\33[0;32m"	//Green
 # define    B_GREEN     "\33[1;32m"	//Bold Green
 # define    YELLOW      "\33[0;33m"	//Yellow
-# define    B_YELLOW    "\33[01;33m"	//Bold Yellow
+# define    B_YELLOW    "\33[01;33m" //Bold Yellow
 # define    BLUE        "\33[0;34m"	//Blue
 # define    B_BLUE      "\33[1;34m"	//Bold Blue
 # define    MAGENTA     "\33[0;35m"	//Magenta
@@ -115,6 +115,7 @@ typedef struct		s_printf
 	char		*m_content;
     int         heigh;
 	int 		nbr_wd_len;                 // length of word or nbr
+	int         negnum;
 
     int			warg;                       // $
     int         sizeReturn;
@@ -153,5 +154,6 @@ int     s_c_bits_lens(unsigned int nbr);
 
 int		ft_padding_space(int times, t_printf *base);
 void		ft_padding_zero(int times, t_printf *base);
+int        counthex(long long hex, int sys);
 
 #endif

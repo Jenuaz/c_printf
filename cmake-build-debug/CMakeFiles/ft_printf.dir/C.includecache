@@ -6,16 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/ylisyak/Documents/printf/ft_char.c
-ft_printf.h
-/Users/ylisyak/Documents/printf/ft_printf.h
-
-/Users/ylisyak/Documents/printf/ft_printf.c
-strings.h
--
-ft_printf.h
-/Users/ylisyak/Documents/printf/ft_printf.h
-
 /Users/ylisyak/Documents/printf/ft_printf.h
 stdio.h
 -
@@ -33,28 +23,6 @@ stdlib.h
 -
 stddef.h
 -
-
-/Users/ylisyak/Documents/printf/ft_put_char.c
-ft_printf.h
-/Users/ylisyak/Documents/printf/ft_printf.h
-
-/Users/ylisyak/Documents/printf/ft_put_count.c
-ft_printf.h
-/Users/ylisyak/Documents/printf/ft_printf.h
-
-/Users/ylisyak/Documents/printf/hex.c
-ft_printf.h
-/Users/ylisyak/Documents/printf/ft_printf.h
-
-/Users/ylisyak/Documents/printf/main.c
-ft_printf.h
-/Users/ylisyak/Documents/printf/ft_printf.h
-locale.h
--
-
-/Users/ylisyak/Documents/printf/octal.c
-ft_printf.h
-/Users/ylisyak/Documents/printf/ft_printf.h
 
 /Users/ylisyak/Documents/printf/parsing.c
 ft_printf.h

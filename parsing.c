@@ -162,10 +162,12 @@ void	parse_flags(t_printf *base)
 		if (SIZE(*base->m_content)) {
 			while ((base->x = (ft_str_search_from(base, "lhjz") + 5)) > -1 && *base->m_content && SIZE(*base->m_content)) {
 				if (*base->m_content == 'l' && !(base->length & F_LONG))
-					(*(base->m_content + 1) == 'l') ? (base->length |= (1 << (base->x + 1))) : (base->length |= (1 << base->x));
-				if (*base->m_content == 'h')
-                    ((*(base->m_content + 1) == 'h') && !(base->length & F_SHORT)) ? (base->length |= (1 << (base->x + 1)))
-																			 : (base->length |= (1 << (base->x + 2)));
+					(*(base->m_content + 1) == 'l') ? (base->length |= (1 << (base->x + 2))) : (base->length |= (1 << (base->x + 1)));
+				if (*base->m_content == 'h' && !(base->length & F_SHORT2))
+                    ((*(base->m_content + 1) == 'h') && !(base->length & F_SHORT)) ? (base->length |= (1 << (base->x + 2))) : (base->length |= (1 << (base->x + 1)));
+//				if (*base->m_content == 'h')
+//					((*(base->m_content + 1) == 'h') && !(base->length & F_SHORT)) ? (base->length |= (1 << (base->x + 1)))
+//																				   : (base->length |= (1 << (base->x + 2)));
 				(*base->m_content == 'j') ? (base->length |= (1 << (base->x + 2))) : 0;
 				(*base->m_content == 'z') ? (base->length |= (1 << (base->x + 2))) : 0;
                 base->m_content++;
@@ -296,7 +298,7 @@ size_t		ft_strlen(const char *s)
 		return (str);
 	}
 
-void	ft_putnbr(intmax_t n)
+void	ft_putnbr(intmax_t n, t_printf *base)
 {
     uintmax_t	news;
     uintmax_t	pronew;
@@ -304,21 +306,22 @@ void	ft_putnbr(intmax_t n)
 
 	if (n < 0)
 	{
-        (n <= INTMAX_MIN) ? 0 : ft_putchar('-');
+        (n <= INTMAX_MIN) ? 0 : ft_put_count('-', base);
 		saver = n * (-1);
 	}
     saver = (uintmax_t)n;
 	if (n == 0 || saver == 0)
 	{
-		ft_putchar('0');
+		ft_put_count('0', base);
 		return ;
 	}
     (saver != 0) ? (pronew = saver) : (pronew = n);
 	news = pronew % 10;
 	pronew = pronew / 10;
 	if (pronew != 0)
-		ft_putnbr(pronew);
+		ft_putnbr(pronew, base);
 	ft_putchar((char)news + '0');
+	base->sizeReturn++;
 }
 
 /*-----------------------------------------------------------------*/
@@ -327,73 +330,149 @@ void	ft_putnbr(intmax_t n)
 /*------------------------- OUT PUT FUNCTIONS --------------------*/
 /*-------------------------    INT_OUT_PUT    --------------------*/
 
+void	ft_putnbr_prec(t_printf *base, intmax_t nbr)
+{
+    int     tmp;
+
+    if (base->precision > base->width && base->precision > base->nbr_wd_len)
+    {
+        tmp = base->precision - base->nbr_wd_len;
+        (base->negnum == 1) ? ft_put_count('-', base) : 0;
+        while (tmp-- && tmp >= 0)
+			ft_put_count('0', base);
+        ft_putnbr(nbr, base);
+        return ;
+    }
+    if (base->precision <= base->width && base->precision >= base->nbr_wd_len)
+    {
+        tmp = base->width - base->precision - ((base->flag & F_PLUS || base->negnum == 1) ? 1 : 0);
+        ((base->flag & F_ZERO) && base->flag & F_PLUS && base->negnum == 0) ? ft_put_count('+', base) : 0;
+        if (!(base->flag & F_MINUS))
+        while (tmp-- && tmp >= 0)
+            ft_put_count(' ', base);
+        tmp = base->precision - base->nbr_wd_len;
+		(base->flag & F_SPACE) ? ft_put_count(' ', base) : 0;
+        (base->flag & F_PLUS && base->negnum == 0) ?  ft_put_count('+', base) : 0;
+        (base->negnum == 1) ? ft_put_count('-', base) : 0;
+        while (tmp-- && tmp >= 0)
+            ft_put_count('0', base);
+        ft_putnbr(nbr, base);
+        if (base->flag & F_MINUS) {
+            tmp = base->width - base->precision - ((base->flag & F_PLUS) ? 1 : 0);
+            while (tmp-- && tmp >= 0)
+                (base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+
+        }
+        return ;
+    }
+
+//	int azaza;
+//
+//	azaza = base->precision;
+//
+//	if (base->width > base->precision && !(base->flag & F_MINUS))
+//	{
+//		if (base->nbr_wd_len - base->precision)
+//		base->width -= (base->nbr_wd_len > base->precision) ? base->nbr_wd_len : base->precision + base->negnum;
+//		while (base->width-- && base->width >= 0)
+//			ft_put_count(' ', base);
+//	}
+//	(base->negnum == 1) ? ft_put_count('-', base) : 0;
+//	if ((base->precision - base->nbr_wd_len) > 0)
+//	{
+//		base->precision -= base->nbr_wd_len;
+//		while (base->precision-- && base->precision >= 0)
+//			ft_put_count('0', base);
+//	}
+//	ft_putnbr(nbr, base);
+//	if (base->width > azaza && (base->flag & F_MINUS))
+//	{
+//		base->width -= (base->nbr_wd_len > azaza) ? base->nbr_wd_len : azaza + base->negnum;
+//		while (base->width-- && base->width >= 0)
+//			ft_put_count(' ', base);
+//	}
+}
 
 void	ft_putnbr_mod(t_printf *base, intmax_t nbr)
 {
-	int 	tmpl;
-	int 	tmpl_nul;
-    int     tmplsv;
-
-    tmplsv = 0;
-	(base->precision >= base->nbr_wd_len) ? ((nbr == 0 && base->check_point == 1 && base->precision != 1) ? (tmpl_nul = (base->precision - \
-	base->nbr_wd_len) + 1) : ((base->x == 1 && !(base->flag & F_ZERO)) ? (tmpl_nul = (base->precision - base->nbr_wd_len) + 1) : (tmpl_nul = \
-	(base->precision - base->nbr_wd_len)))) : (tmpl_nul = 0);                 // how much '0' output
-	if (base->width > base->nbr_wd_len && base->precision <= base->nbr_wd_len) {
-        (base->check_point == 1 && nbr == 0) ? (tmpl = (base->width - base->nbr_wd_len) + 1) : (base->flag & F_PLUS && base->x != 1) \
- ? (tmpl = (base->width - base->nbr_wd_len) - 1) : (tmpl = base->width - base->nbr_wd_len);
-		(((base->flag & F_MINUS) || ((base->flag & F_SPACE) || (base->flag & F_ZERO))) ?  0 : ft_padding_space(tmpl, base));
-		if (base->flag & F_PLUS || base->x == 1)
-			(nbr >= 0 && base->x != 1) ? write(1, "+", 1) : write(1, "-", 1);
-		((base->flag & F_ZERO) && !(base->flag & F_MINUS)) ? ft_padding_zero(tmpl, base):0;
-		(base->flag & F_SPACE) ? ft_padding_space(1, base) : 0;
-		//ft_putnbr(nbr);
-        base->size_teml = base->width;
-        while (tmpl_nul--)
-            write(1, "0", 1);
-        (base->check_point == 1 && nbr == 0) ? 0 : ft_putnbr(nbr);
-		(base->flag & F_MINUS) ? (base->flag & F_SPACE) ? ft_padding_space(tmpl-1, base) : ft_padding_space(tmpl, base) : 0;
-		base->m_content = base->m_content + base->skip;
-
-	}
-	else if (base->width > base->nbr_wd_len && base->precision > base->nbr_wd_len && base->precision < base->width)
-	{
-		tmpl = base->width - base->precision;
-        ((base->flag & F_SPACE && (tmpl == 0 || base->flag & F_MINUS)) && (base->width - base->precision - base->nbr_wd_len) > 0) ? ft_padding_space(1,base) : 0;
-        (base->flag & F_MINUS) ? 0 : ft_padding_space((base->flag & F_PLUS || base->x == 1) ? (tmpl - 1) : tmpl, base);
-        // fix in future     FIXANUL BLYA
-		if (base->flag & F_PLUS || base->x == 1)
-			(nbr >= 0 && base->x != 1) ? write(1, "+", 1) : write(1, "-", 1);
-		while (tmpl_nul)
-            (tmpl_nul) ? tmplsv++ && write(1, "0", 1) && tmpl_nul-- : 0 ;
-        base->size_teml = base->width;
-        (base->check_point == 1 && nbr == 0) ? 0 : ft_putnbr(nbr);
-	//	ft_putnbr(nbr);
-		(base->flag & F_MINUS ) ? ft_padding_space((base->flag & F_PLUS || base->x == 1 || base->flag & F_SPACE) ? (tmpl - 1) : tmpl, base) : 0; //&& !(base->flag & F_SPACE)
-//        (base->flag & F_MINUS ) ? ft_padding_space((base->flag & F_PLUS || base->x == 1) ? (tmpl - 1 - tmplsv) : tmpl - (--tmplsv)) : 0;
-//        (base->flag & F_SPACE) ? ft_padding_space(1) : 0;
-		base->m_content = base->m_content + base->skip;
-	}
-	else {
-        (base->flag & F_SPACE && !(base->flag & F_ZERO) && !(base->flag & F_PLUS) && (base->x != 1) ) ? (base->sizeReturn += 1) && ft_padding_space(1, base) : 0;
-		((base->flag & F_ZERO) && base->precision == 0) ? (base->nbr_wd_len > base->width)? 0 : ft_padding_zero(1, base) : 0;
-		if (base->flag & F_PLUS || base->x == 1)
-			(nbr >= 0 && base->x != 1) ? write(1, "+", 1) && (base->sizeReturn += 1) : write(1, "-", 1) && (base->x != 1) ? (base->sizeReturn += 1) : (base->nbr_wd_len < base->precision) ? (base->sizeReturn += 1) : 0;
-		while (tmpl_nul-- )
-			write(1, "0", 1);
-		base->m_content = base->m_content + base->skip;
-        base->size_teml = (base->width < base->precision && base->nbr_wd_len < base->precision) ? base->precision : (base->nbr_wd_len >= base->precision)? base->nbr_wd_len : base->nbr_wd_len + base->precision;
-        (base->check_point == 1 && nbr == 0) ? 0 : ft_putnbr(nbr) ;
-        ((nbr == 0 || nbr == -0) && (base->precision == 1)) ? base->size_teml-- : 0 ;
-	}
+    int plus;
+	plus = (base->flag & F_PLUS) ? 1 : 0;
+	(base->flag & F_SPACE) || base->negnum == 1 ? (plus = 0) : 0;
+    if (base->nbr_wd_len >= base->precision && base->nbr_wd_len >= base->width)
+    {
+	    base->negnum == 1 ? ft_put_count('-', base) : 0;
+	    base->negnum == 0 && (base->flag & F_PLUS) ? ft_put_count('+', base) : 0;
+	    base->negnum == 0 && !(base->flag & F_PLUS) && (base->flag & F_SPACE) ? ft_put_count(' ', base) : 0;
+        (nbr != 0) ? ft_putnbr(nbr, base) : 0;
+		(nbr == 0 && base->precision == -1) ? ft_putnbr(nbr, base) : 0;
+    }
+    if (base->precision > base->nbr_wd_len)
+    {
+        ft_putnbr_prec(base, nbr);
+		return ;
+    }
+    if (base->width >= base->nbr_wd_len)
+    {
+        (nbr == 0) ? base->nbr_wd_len = 0 : 0;
+        if (base->width > base->nbr_wd_len)
+		{
+			(base->precision > base->nbr_wd_len) ? base->width -= base->precision : 0;
+			(base->precision <= base->nbr_wd_len) ? base->width -= base->nbr_wd_len : 0;
+		}
+		else
+        base->width = base->width - ((base->precision > 1) ? base->precision : 0) - base->nbr_wd_len;
+        (base->negnum != 1 && base->flag & F_PLUS) ? ft_put_count('+', base) : 0;
+        (base->negnum == 1 && (base->flag & F_ZERO)) ? ft_put_count('-', base) : 0;
+        if (base->width > 0 && !(base->flag & F_MINUS))
+	    {
+		    base->width -= base->negnum + plus;// + ((base->precision > 0) ? base->nbr_wd_len : 0);
+		    while (base->width-- && base->width >= 0)
+			    (base->flag & F_ZERO) ? ft_put_count('0', base) :  ft_put_count(' ', base);
+	    }
+        base->negnum == 1 && !(base->flag & F_ZERO)? ft_put_count('-', base) : 0;
+        base->negnum == 0 && (base->flag & F_PLUS) && !(base->flag & F_ZERO)? ft_put_count('+', base) : 0;
+        base->negnum == 0 && !(base->flag & F_PLUS) && (base->flag & F_SPACE) ? ft_put_count(' ', base) : 0;
+        (base->precision == 0 && base->nbr_wd_len <= 1) ? 0 : ft_putnbr(nbr, base);
+        if (base->width > 0 && (base->flag & F_MINUS))
+        {
+            base->width -= base->negnum + plus;
+            while (base->width-- && base->width >= 0)
+                ft_put_count(' ', base);
+        }
+    }
+//	int plus;
+//
+//	plus = (base->flag & F_PLUS) ? 1 : 0;
+//	(base->flag & F_SPACE) || base->negnum == 1 ? (plus = 0) : 0;
+//	if (base->precision > 0)
+//	{
+//		ft_putnbr_prec(base, nbr);
+//		return ;
+//	}
+//	if (base->width > 0 && !(base->flag & F_MINUS))
+//	{
+//		base->width -= base->negnum + plus + ((base->precision > 0) ? base->nbr_wd_len : 0);
+//		while (base->width-- && base->width >= 0)
+//			(base->flag & F_ZERO) ? ft_put_count('0', base) :  ft_put_count(' ', base);
+//	}
+//	base->negnum == 1 && !(base->flag & F_ZERO)? ft_put_count('-', base) : 0;
+//	base->negnum == 0 && (base->flag & F_PLUS) && !(base->flag & F_ZERO)? ft_put_count('+', base) : 0;
+//	base->negnum == 0 && !(base->flag & F_PLUS) && (base->flag & F_SPACE) ? ft_put_count(' ', base) : 0;
+//    (base->precision == 0 && base->nbr_wd_len <= 1) ? 0 : ft_putnbr(nbr, base);
+//	if (base->width > 0 && (base->flag & F_MINUS))
+//	{
+//		base->width -= base->negnum + plus + base->nbr_wd_len;
+//		while (base->width-- && base->width >= 0)
+//			ft_put_count(' ', base);
+//	}
 }
 
 
 void	out_put_int(t_printf *base)
 {
 	intmax_t	n;
-    uintmax_t   spec;
 
-    spec = 0;
+	base->negnum = 0;
 	if (base->length & F_LONG || base->length & F_LONG2)
 		n = (base->length & F_LONG2) ? ((intmax_t)va_arg(base->first_arg, long long)) :
 			((intmax_t)va_arg(base->first_arg, long));
@@ -403,16 +482,18 @@ void	out_put_int(t_printf *base)
 	else if (base->length & F_INTMAX)
 		n = (va_arg(base->first_arg, intmax_t));
 	else if (base->length & F_SIZE_T)
-		n = ((intmax_t)va_arg(base->first_arg, ssize_t));
+		n = ((size_t)va_arg(base->first_arg, ssize_t));
 	else
 		n = ((intmax_t)va_arg(base->first_arg, int));
 	if (n < 0) {
-		base->x = 1;
-        (n <= INTMAX_MIN) ? (base->nbr_wd_len = ft_strlen(ft_itoa(spec = n * (-1), base))) : (base->nbr_wd_len = ft_strlen(ft_itoa((n *= -1), base)));
+		base->negnum = 1;
+		n *= (-1);
+		base->nbr_wd_len = counthex(n, 10);
+        //(n <= INTMAX_MIN) ? (base->nbr_wd_len = ft_strlen(ft_itoa(spec = n * (-1), base))) : (base->nbr_wd_len = ft_strlen(ft_itoa((n *= -1), base)));
 	}
 	else
-		base->nbr_wd_len = ft_strlen(ft_itoa(n, base));
-    (spec != 0) ? ft_putnbr_mod(base, spec) : ft_putnbr_mod(base, n);
+		base->nbr_wd_len = counthex(n, 10);
+   	ft_putnbr_mod(base, n);
 }
 
 
@@ -538,10 +619,10 @@ void	out_results(t_printf *base)
         ft_hex_out_put(base);
 	else if (base->specifier == 'o')
 		ft_oct_out_put(base);
-    else if (base->specifier == 'c')
-		out_put_char(base);
-	else if (base->specifier == 's')
-		out_put_string(base);
+//    else if (base->specifier == 'c')
+//		out_put_char(base);
+//	else if (base->specifier == 's')
+//		out_put_string(base);
 //	else if (new->type == 'p')
 //		showptr(new, va);
 //	else if (new->type == 'u' || new->type == 'U')

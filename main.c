@@ -8,28 +8,73 @@
 
 int main(void)
 {
+    printf("% -100.7d\n", 124141);
+    ft_printf("% -100.7d\n", 124142);
+    ft_printf("\33[1;32m------------------- Check printf -------------------- \n");
+    ft_printf("%15.4d\n", 424242);
+    printf("%15.4d\n", 424242);
+    ft_printf("%+d\n", 0);
+    printf("%+d\n", 0);
+    printf("%zd\n", -0);
+    ft_printf("%zd\n", -0);
+    ft_printf("%hhd\n", 128);
+    printf("%hhd\n", 128);
+    ft_printf("%hd\n", -32769);
+    printf("%hd\n", -32769);
+    ft_printf("%hd\n", 32768);
+    printf("%hd\n", 32768);
+    ft_printf("%03.2d\n", 0);
+    printf("%03.2d\n", 0);
+    ft_printf("%03.2d\n", 1);
+    printf("%03.2d\n", 1);
+    ft_printf("%03.2d\n", -1);
+    printf("%03.2d\n", -1);
+    ft_printf("%+10.5d\n", 4242);
+    printf("%+10.5d\n", 4242);
+    ft_printf("%4.15d\n", 42);
+    printf("%4.15d\n", 42);
+    ft_printf("%-5d\n", 42);
+    printf("%-5d\n", 42);
+    ft_printf("%05d\n", -42);
+    printf("%05d\n", -42);
+    ft_printf("%0+5d\n", 42);
+    printf("%0+5d\n", 42);
+    ft_printf("%-1.4d|\n", -5);
+    printf("%-1.4d|\n", -5);
+    ft_printf("%+d\n", 0);
+    printf("%+d\n", 0);
+    ft_printf("%5d\n", -42);
+    printf("%5d\n", -42);
+    ft_printf("%.d %.0d|\n", 0, 0);     // -> "@moulitest:  "
+    printf("%.d %.d|\n", 0, 0);
+    ft_printf("%5.d %5.0d|\n", 0, 0);    //-> "@moulitest:            "
+    printf("%5.d %5.0d|\n", 0, 0);
+    ft_printf("@moulitest: %5.o %5.0o|\n", 0, 0);
+    printf("@moulitest: %5.o %5.0o|\n", 0, 0);
+    ft_printf("@moulitest: %5.x %5.0x|\n", 0, 0);
+    printf("@moulitest: %5.x %5.0x|\n", 0, 0);
+    ft_printf("%5.d|\n", 0, 0);
+    printf("%5.d|\n", 0, 0);
+    ft_printf("@moulitest: %.d %.0d\n", 42, 43);
+    printf("@moulitest: %.d %.0d\n", 42, 43);
 
-    ft_printf("%.2s is a string\n", "this");
-    printf("%.2s is a string\n", "this");
 
+    printf("\33[1;32m------------------- Check printf -------------------- \n");
+    ft_printf("%+lld\n", 4242424242424242424);
+    printf("%+lld\n", 4242424242424242424);
+    printf("\33[1;32m----------------------- MY -------------------------- \n");
+    ft_printf("%d\n", 1);        // -> "1"
+    printf("\33[0;31m--------------------- DEFAULT ----------------------- \n");
+       printf("%d\n", 1);
+    printf("\33[1;32m----------------------- MY -------------------------- \n");
 
-//
-//    printf("------------------- Check printf -------------------- \n");
-//    ft_printf("%+lld", 4242424242424242424242);
-//    printf("%+lld", 4242424242424242424242);
-//    printf("\33[1;32m----------------------- MY -------------------------- \n");
-//    ft_printf("%d\n", 1);        // -> "1"
-//    printf("\33[0;31m--------------------- DEFAULT ----------------------- \n");
-//       printf("%d\n", 1);
-//    printf("\33[1;32m----------------------- MY -------------------------- \n");
-//
-//    printf("\33[0;31m--------------------- DEFAULT ----------------------- \n");
-//    ft_printf("the %d\n", 1);                      // -> "the 1"
-//    printf("\33[1;32m----------------------- MY -------------------------- \n");
+    printf("\33[0;31m--------------------- DEFAULT ----------------------- \n");
 
-//    printf("\33[0;31m--------------------- DEFAULT ----------------------- \n");
+    printf("\33[1;32m----------------------- MY -------------------------- \n");
+
+    printf("\33[0;31m--------------------- DEFAULT ----------------------- \n");
 //  -> "1 is one"
-//    printf("\33[1;32m----------------------- MY -------------------------- \n");
+    printf("\33[1;32m----------------------- MY -------------------------- \n");
 //  -> "4242"
 // ft_printf("%d\n", 4242);
 // ft_printf("%d\n", 4242);
@@ -62,30 +107,32 @@ int main(void)
 //    ft_printf("%0d\n", -42);                                //-> "-42"
 //    printf("%0d\n", -42);
 //
-//    ft_printf("%0+5d\n", -42);
-//    printf("%0+5d\n", -42);
-//
-//    ft_printf("%0d\n", -42);
-//    printf("%0d\n", -42);
-//
-//    ft_printf("%00d\n", -42);
-//    printf("%00d\n", -42);
-//
-//    ft_printf("%hhd\n", 128);
-//    printf("%hhd\n", 128);
-//
-//    ft_printf("%hd\n", 32767);
-//    printf("%hd\n", 32767);
-//
-//    ft_printf("%0+5d\n", 42);
-//    printf("%0+5d\n", 42);
-//
-//    ft_printf("%00d\n", -42);                      // -> "-42"
-//    printf("%00d\n", -42);
-//    ft_printf("%5d\n", 42);                       //  -> "   42"
-//    ft_printf("%05d\n", 42);                      //  -> "00042"
-//    ft_printf("%0+5d\n", 42);                      // -> "+0042"
-//    printf("%0+5d\n", 42);                            // -> "+0042"
+    ft_printf("%0+5d\n", -42);
+    printf("%0+5d\n", -42);
+
+    ft_printf("%0d\n", -42);
+    printf("%0d\n", -42);
+
+    ft_printf("%00d\n", -42);
+    printf("%00d\n", -42);
+
+    ft_printf("%hhd\n", 128);
+    printf("%hhd\n", 128);
+
+    ft_printf("%hd\n", 32767);
+    printf("%hd\n", 32767);
+
+    ft_printf("%0+5d\n", 42);
+    printf("%0+5d\n", 42);
+
+    ft_printf("%00d\n", -42);                      // -> "-42"
+    printf("%00d\n", -42);
+    ft_printf("%5d\n", 42);                       //  -> "   42"
+    printf("%5d\n", 42);                       //  -> "   42"
+    ft_printf("%05d\n", 42);                      //  -> "00042"
+    printf("%05d\n", 42);                      //  -> "00042"
+    ft_printf("%0+5d\n", 42);                      // -> "+0042"
+    printf("%0+5d\n", 42);                            // -> "+0042"
 //    130.      ft_printf("%5d", -42);                        -> "  -42"
 //    131.      ft_printf("%05d", -42);                       -> "-0042"
 //    132.      ft_printf("%0+5d", -42);                      -> "-0042"
@@ -114,59 +161,64 @@ int main(void)
 //    155.      ft_printf("%zd", -0);                         -> "0"
 //    156.      ft_printf("%zd", -1);                         -> "-1"
 //    157.      ft_printf("%d", 1);                           -> "1"
-//    158.      ft_printf("%d %d", 1, -2);                    -> "1 -2"
-//    159.      ft_printf("%d %d %d", 1, -2, 33);             -> "1 -2 33"
-//    160.      ft_printf("%d %d %d %d", 1, -2, 33, 42);      -> "1 -2 33 42"
-//    161.      ft_printf("%d %d %d %d gg!", 1, -2, 33, 42, 0); -> "1 -2 33 42 gg!"
-//    printf("1%4.15d\n", 42);                                                    //
-//    ft_printf("2%4.15d\n", 42);                                                 //       -> "000000000000042"
-//    printf("1%.2d\n", 4242);                                                   //
-//    ft_printf("2%.2d\n", 4242);                                               // -> "4242"
-//    printf("1%.10d\n", 4242);                                                //
-//    ft_printf("2%.10d\n", 4242);                                            //      -> "0000004242"
-//    printf("1%10.5d\n", 4242);                                             //
-//    ft_printf("2%10.5d\n", 4242);                                         //   -> "     04242"
-//    printf("%-10.5d\n", 4241);                                          //
-//    ft_printf("%-10.5d\n", 4242);                                      //   -> "04242     "
-//    printf("1% 10.5d\n", 4242);                                        //
-//    ft_printf("2% 10.5d\n", 4242);                                    //-> "     04242"
-//    printf("1%+10.5d\n", 4242);                                      //
-//    ft_printf("2%+10.5d\n", 4242);                                  //-> "    +04242"
-//    printf("1%-+10.5d\n", 4242);                                   //
-//    ft_printf("2%-+10.5d\n", 4242);                               // -> "+04242    "
-//    printf("1%03.2d\n", 0);                                      //
-//    ft_printf("2%03.2d\n", 0);                                  //-> " 00"
-//    printf("1%03.2d\n", 1);                                    //
-//    ft_printf("2%03.2d\n", 1);                                // -> " 01"
-//    printf("1%03.2d\n", -1);                                 //
-//    ft_printf("2%03.2d\n", -1);                             //  -> "-01"
-//    printf("1@moulitest: %.10d\n", -42);                   //
-//    ft_printf("2@moulitest: %.10d\n", -42);               //-> "@moulitest: -0000000042"
-//    printf("1@moulitest: %.10d\n", -42);                 //
-//    ft_printf("2@moulitest: %.10d\n", -42);             //-> "@moulitest: -0000000042"
-//    printf("1@moulitest: %.d %.0d\n", 42, 43);         //
-//    ft_printf("2@moulitest: %.d %.0d\n", 42, 43);     // -> "@moulitest: 42 43"
-//    printf("1@moulitest: %.d %.0d\n", 0, 0);         //
-//    ft_printf("2@moulitest: %.d %.0d\n", 0, 0);     //  -> "@moulitest:  "
-//    printf("1@moulitest: %5.d %5.0d\n", 0, 0);     //
-//   ft_printf("2@moulitest: %5.d %5.0d\n", 0, 0);  // -> "@moulitest:            "
-//
-//    printf("\n");
-//    printf("%d\n", printf("%100.7d\n", 124141));
-//    printf("%d\n",(ft_printf("%100.7d\n", 124142)));
-//
-//
-//    printf("%d\n", printf("%d   \n", 124141));
-//    printf("%d\n", ft_printf("%d   \n", 124141));
-//
-//    printf("%d\n", printf("%+100.7d\n", 124141));
-//    printf("%d\n",(ft_printf("%+100.7d\n", 124142)));
-//
-//
+          ft_printf("%d %d\n", 1, -2);                          // -> "1 -2"
+             printf("%d %d\n", 1, -2);
+          ft_printf("%d %d %d\n", 1, -2, 33);                    // -> "1 -2 33"
+             printf("%d %d %d\n", 1, -2, 33);
+          ft_printf("%d %d %d %d\n", 1, -2, 33, 42);            // -> "1 -2 33 42"
+             printf("%d %d %d %d\n", 1, -2, 33, 42);
+         ft_printf("%d %d %d %d gg!\n", 1, -2, 33, 42, 0);   // -> "1 -2 33 42 gg!"
+            printf("%d %d %d %d gg!\n", 1, -2, 33, 42, 0);
+    printf("1%4.15d\n", 42);                                                    //
+    ft_printf("2%4.15d\n", 42);                                                 //       -> "000000000000042"
+    printf("1%.2d\n", 4242);                                                   //
+    ft_printf("2%.2d\n", 4242);                                               // -> "4242"
+    printf("1%.10d\n", 4242);                                                //
+    ft_printf("2%.10d\n", 4242);                                            //      -> "0000004242"
+    printf("1%10.5d\n", 4242);                                             //
+    ft_printf("2%10.5d\n", 4242);                                         //   -> "     04242"
+    printf("%-10.5d\n", 4241);                                          //
+    ft_printf("%-10.5d\n", 4242);                                      //   -> "04242     "
+    printf("1% 10.5d\n", 4242);                                        //
+    ft_printf("2% 10.5d\n", 4242);                                    //-> "     04242"
+    printf("1%+10.5d\n", 4242);                                      //
+    ft_printf("2%+10.5d\n", 4242);                                  //-> "    +04242"
+    printf("1%-+10.5d\n", 4242);                                   //
+    ft_printf("2%-+10.5d\n", 4242);                               // -> "+04242    "
+    printf("1%03.2d\n", 0);                                      //
+    ft_printf("2%03.2d\n", 0);                                  //-> " 00"
+    printf("1%03.2d\n", 1);                                    //
+    ft_printf("2%03.2d\n", 1);                                // -> " 01"
+    printf("1%03.2d\n", -1);                                 //
+    ft_printf("2%03.2d\n", -1);                             //  -> "-01"
+    printf("1@moulitest: %.10d\n", -42);                   //
+    ft_printf("2@moulitest: %.10d\n", -42);               //-> "@moulitest: -0000000042"
+    printf("1@moulitest: %.10d\n", -42);                 //
+    ft_printf("2@moulitest: %.10d\n", -42);             //-> "@moulitest: -0000000042"
+    printf("1@moulitest: %.d %.0d\n", 42, 43);         //
+    ft_printf("2@moulitest: %.d %.0d\n", 42, 43);     // -> "@moulitest: 42 43"
+    printf("1@moulitest: %.d %.0d\n", 0, 0);         //
+    ft_printf("2@moulitest: %.d %.0d\n", 0, 0);     //  -> "@moulitest:  "
+    printf("1@moulitest: %5.d %5.0d\n", 0, 0);     //
+   ft_printf("2@moulitest: %5.d %5.0d\n", 0, 0);  // -> "@moulitest:            "
+
+    printf("\33[0;31m--------------------- DEFAULT ----------------------- \n");
+    printf("\n");
+    printf("%d\n", printf("%100.7d\n", 124141));
+    printf("%d\n",(ft_printf("%100.7d\n", 124142)));
+    printf("\33[0;31m--------------------- DEFAULT ----------------------- \n");
+
+    printf("%d\n", printf("%d   \n", 124141));
+    printf("%d\n", ft_printf("%d   \n", 124141));
+    printf("\33[0;31m--------------------- DEFAULT ----------------------- \n");
+    printf("%d\n", printf("%+100.7d\n", 124141));
+    printf("%d\n",(ft_printf("%+100.7d\n", 124142)));
+    printf("\33[0;31m--------------------- DEFAULT ----------------------- \n");
+
 //    printf("%d\n",(printf("%d hello %d and %s\n", 124141, 10, "Shit")));
 //    printf("%d\n",(ft_printf("%d hello %d and %s\n", 124141, 10, "Shit")));
-//
-//
+
+
 //    printf("%d\n",(ft_printf("test\n")));
 //
 //
@@ -180,7 +232,7 @@ int main(void)
 //    printf("7%+-100.7d\n", -124141);
 //    ft_printf("8%+-100.7d\n", -124142);
 //    printf("\n");
-//
+
 //
 //    printf("%.20d\n", 37732);
 //    ft_printf("%.20d\n", 37732);
