@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/Users/ylisyak/Documents/printf/ft_char.c" "/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_char.c.o"
+  "/Users/ylisyak/Documents/printf/ft_digits_di.c" "/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_digits_di.c.o"
   "/Users/ylisyak/Documents/printf/ft_printf.c" "/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_printf.c.o"
   "/Users/ylisyak/Documents/printf/ft_put_char.c" "/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_put_char.c.o"
   "/Users/ylisyak/Documents/printf/ft_put_count.c" "/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_put_count.c.o"

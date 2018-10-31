@@ -83,6 +83,9 @@
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_char.c">
 			<Option target="ft_printf"/>
 		</Unit>
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_digits_di.c">
+			<Option target="ft_printf"/>
+		</Unit>
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_printf.c">
 			<Option target="ft_printf"/>
 		</Unit>

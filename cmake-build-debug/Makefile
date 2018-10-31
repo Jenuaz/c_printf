@@ -150,6 +150,33 @@ ft_char.c.s:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_char.c.s
 .PHONY : ft_char.c.s
 
+ft_digits_di.o: ft_digits_di.c.o
+
+.PHONY : ft_digits_di.o
+
+# target to build an object file
+ft_digits_di.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_digits_di.c.o
+.PHONY : ft_digits_di.c.o
+
+ft_digits_di.i: ft_digits_di.c.i
+
+.PHONY : ft_digits_di.i
+
+# target to preprocess a source file
+ft_digits_di.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_digits_di.c.i
+.PHONY : ft_digits_di.c.i
+
+ft_digits_di.s: ft_digits_di.c.s
+
+.PHONY : ft_digits_di.s
+
+# target to generate assembly for a file
+ft_digits_di.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_digits_di.c.s
+.PHONY : ft_digits_di.c.s
+
 ft_printf.o: ft_printf.c.o
 
 .PHONY : ft_printf.o
@@ -351,6 +378,9 @@ help:
 	@echo "... ft_char.o"
 	@echo "... ft_char.i"
 	@echo "... ft_char.s"
+	@echo "... ft_digits_di.o"
+	@echo "... ft_digits_di.i"
+	@echo "... ft_digits_di.s"
 	@echo "... ft_printf.o"
 	@echo "... ft_printf.i"
 	@echo "... ft_printf.s"

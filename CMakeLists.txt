@@ -12,4 +12,4 @@ add_executable(ft_printf
         ft_put_count.c
         octal.c
         ft_put_char.c
-        ft_char.c)
+        ft_char.c ft_digits_di.c)

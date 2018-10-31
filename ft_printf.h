@@ -156,4 +156,12 @@ int		ft_padding_space(int times, t_printf *base);
 void		ft_padding_zero(int times, t_printf *base);
 int        counthex(long long hex, int sys);
 
+/*----------------Digit out put----------*/
+void	ft_putnbr(intmax_t n, t_printf *base);
+
+/*-------------------- d i --------------*/
+void	ft_putnbr_mod(t_printf *base, intmax_t nbr);
+void	ft_putnbr_prec(t_printf *base, intmax_t nbr);
+
+
 #endif

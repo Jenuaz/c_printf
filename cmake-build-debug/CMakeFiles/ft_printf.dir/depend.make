@@ -4,6 +4,9 @@
 CMakeFiles/ft_printf.dir/ft_char.c.o: ../ft_char.c
 CMakeFiles/ft_printf.dir/ft_char.c.o: ../ft_printf.h
 
+CMakeFiles/ft_printf.dir/ft_digits_di.c.o: ../ft_digits_di.c
+CMakeFiles/ft_printf.dir/ft_digits_di.c.o: ../ft_printf.h
+
 CMakeFiles/ft_printf.dir/ft_printf.c.o: ../ft_printf.c
 CMakeFiles/ft_printf.dir/ft_printf.c.o: ../ft_printf.h
 
