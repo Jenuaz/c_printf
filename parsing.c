@@ -101,14 +101,17 @@ void	help_fill_recogn(t_printf *base)
         if (*(base->m_content) != 46) {
             if ((ft_isdigit(*base->m_content) || (*base->m_content == '*'))  &&
                 ft_review(&base->m_content, base))
-                (*base->m_content == '*') ? (base->width = (int) va_arg(base->first_arg, int))
+                (*base->m_content == '*') ? (base->width = va_arg(base->first_arg, int))
                                           : (base->width = uni_dig_fill(&base->m_content));
+            (base->m_content != '\0' && *base->m_content == '*') ? (void)(*base->m_content++) : 0;
         }
         if (*(base->m_content) == 46) {
             base->m_content++;
-            if ((ft_isdigit(*base->m_content) || (*base->m_content == '*')) && base->precision == -1)
+            if ((ft_isdigit(*base->m_content) || (*base->m_content == '*')) && base->precision == -1) {
                 (*base->m_content == '*') ? (base->precision = (int) va_arg(base->first_arg, int))
                                           : (base->precision = uni_dig_fill(&base->m_content));
+                (base->m_content != '\0' && *base->m_content == '*') ? (void)(*base->m_content++) : 0;
+            }
             else
                 base->precision = 0;
         }
@@ -338,6 +341,7 @@ void	ft_putnbr_prec(t_printf *base, intmax_t nbr)
     {
         tmp = base->precision - base->nbr_wd_len;
         (base->negnum == 1) ? ft_put_count('-', base) : 0;
+        (base->flag & F_PLUS && base->negnum != 1) ? ft_put_count('+', base) : 0;
         while (tmp-- && tmp >= 0)
 			ft_put_count('0', base);
         ft_putnbr(nbr, base);
@@ -351,17 +355,17 @@ void	ft_putnbr_prec(t_printf *base, intmax_t nbr)
         while (tmp-- && tmp >= 0)
             ft_put_count(' ', base);
         tmp = base->precision - base->nbr_wd_len;
-		(base->flag & F_SPACE) ? ft_put_count(' ', base) : 0;
+		(base->flag & F_SPACE && (base->width <= base->precision)) ? ft_put_count(' ', base) : 0;
+        (base->flag & F_SPACE && (base->flag & F_MINUS) && (base->width > base->precision)) ? ft_put_count(' ', base) : 0;
         (base->flag & F_PLUS && base->negnum == 0) ?  ft_put_count('+', base) : 0;
         (base->negnum == 1) ? ft_put_count('-', base) : 0;
         while (tmp-- && tmp >= 0)
             ft_put_count('0', base);
         ft_putnbr(nbr, base);
         if (base->flag & F_MINUS) {
-            tmp = base->width - base->precision - ((base->flag & F_PLUS) ? 1 : 0);
+            tmp = base->width - base->precision - ((base->flag & F_PLUS || base->flag & F_SPACE || base->negnum == 1) ? 1 : 0);
             while (tmp-- && tmp >= 0)
                 (base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
-
         }
         return ;
     }
@@ -416,8 +420,11 @@ void	ft_putnbr_mod(t_printf *base, intmax_t nbr)
         (nbr == 0) ? base->nbr_wd_len = 0 : 0;
         if (base->width > base->nbr_wd_len)
 		{
-			(base->precision > base->nbr_wd_len) ? base->width -= base->precision : 0;
-			(base->precision <= base->nbr_wd_len) ? base->width -= base->nbr_wd_len : 0;
+            (base->nbr_wd_len == 0 && base->precision == -1) ? base->nbr_wd_len = 1 : 0;
+			(base->precision >= base->nbr_wd_len) ? (base->width -= base->precision) : 0;
+			(base->precision < base->nbr_wd_len) ? base->width -= base->nbr_wd_len : 0;
+            (base->width > base->nbr_wd_len && base->width > base->precision && base->flag & F_SPACE) ?
+            base->width -= 1 : 0;
 		}
 		else
         base->width = base->width - ((base->precision > 1) ? base->precision : 0) - base->nbr_wd_len;
