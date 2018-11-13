@@ -39,7 +39,7 @@ void	ft_putnbr_prec(t_printf *base, intmax_t nbr)
     }
 }
 
-void	ft_putnbr_mod(t_printf *base, intmax_t nbr)
+void	ft_putnbr_mod(t_printf *base, unsigned long long int nbr)
 {
     int plus;
     plus = (base->flag & F_PLUS) ? 1 : 0;
@@ -75,12 +75,12 @@ void	ft_putnbr_mod(t_printf *base, intmax_t nbr)
         if (base->width > 0 && !(base->flag & F_MINUS))
         {
             base->width -= base->negnum + plus;// + ((base->precision > 0) ? base->nbr_wd_len : 0);
+            base->negnum == 0 && !(base->flag & F_PLUS && base->specifier != 'u' && base->specifier != 'U') && (base->flag & F_SPACE) ? ft_put_count(' ', base) : 0;
             while (base->width-- && base->width >= 0)
                 (base->flag & F_ZERO) ? ft_put_count('0', base) :  ft_put_count(' ', base);
         }
         base->negnum == 1 && !(base->flag & F_ZERO)? ft_put_count('-', base) : 0;
         base->negnum == 0 && (base->flag & F_PLUS && base->specifier != 'u' && base->specifier != 'U') && !(base->flag & F_ZERO)? ft_put_count('+', base) : 0;
-        base->negnum == 0 && !(base->flag & F_PLUS && base->specifier != 'u' && base->specifier != 'U') && (base->flag & F_SPACE) ? ft_put_count(' ', base) : 0;
         (base->precision == 0 && base->nbr_wd_len <= 1) ? 0 : ft_putnbr(nbr, base);
         if (base->width > 0 && (base->flag & F_MINUS))
         {

@@ -1,6 +1,15 @@
 
 #include "ft_printf.h"
 
+int     ft_abs(int nbr, t_printf *base)
+{
+    if (nbr < 0) {
+        base->flag |= F_MINUS;
+        nbr *= -1;
+    }
+    return (nbr);
+}
+
 int		ft_tolower(int c)
 {
 	if (c >= 65 && c <= 90)
@@ -63,7 +72,7 @@ int        ft_atoi(const char *str, int *skip)
 	return ((ng == 1) ? (count * (-1)) : (count));
 }
 
-int 	uni_dig_fill(char **s)
+int 	uni_dig_fill(char **s, t_printf *base)
 {
 	int     numb;
 	int     skip;
@@ -71,6 +80,10 @@ int 	uni_dig_fill(char **s)
 	skip = 0;
 	numb = ft_atoi(*s, &skip);
 	*s += skip;
+	if (**s == '*') {
+        numb = (ft_abs(va_arg(base->first_arg, int), base));
+        *s += 1;
+    }
 	return (numb);
 }
 
@@ -99,17 +112,16 @@ void	help_fill_recogn(t_printf *base)
 	if (TYPESTO(*base->m_content) && (ft_isdigit(*base->m_content) || *base->m_content == 46 || *base->m_content == '*') && SIZE_F(*base->m_content))
 	{
         if (*(base->m_content) != 46) {
-            if ((ft_isdigit(*base->m_content) || (*base->m_content == '*'))  &&
-                ft_review(&base->m_content, base))
-                (*base->m_content == '*') ? (base->width = va_arg(base->first_arg, int))
-                                          : (base->width = uni_dig_fill(&base->m_content));
+            if ((ft_isdigit(*base->m_content) || (*base->m_content == '*'))  && ft_review(&base->m_content, base))
+                (*base->m_content == '*') ? (base->width = ft_abs(va_arg(base->first_arg, int), base))
+                                          : (base->width = uni_dig_fill(&base->m_content, base));
             (base->m_content != '\0' && *base->m_content == '*') ? (void)(*base->m_content++) : 0;
         }
         if (*(base->m_content) == 46) {
             base->m_content++;
             if ((ft_isdigit(*base->m_content) || (*base->m_content == '*')) && base->precision == -1) {
-                (*base->m_content == '*') ? (base->precision = (int) va_arg(base->first_arg, int))
-                                          : (base->precision = uni_dig_fill(&base->m_content));
+                (*base->m_content == '*') ? (base->precision = (int)va_arg(base->first_arg, int))
+                                          : (base->precision = uni_dig_fill(&base->m_content, base));
                 (base->m_content != '\0' && *base->m_content == '*') ? (void)(*base->m_content++) : 0;
             }
             else
@@ -301,18 +313,18 @@ size_t		ft_strlen(const char *s)
 		return (str);
 	}
 
-void	ft_putnbr(intmax_t n, t_printf *base)
+void	ft_putnbr(unsigned long long int n, t_printf *base)
 {
-    uintmax_t	news;
-    uintmax_t	pronew;
-    uintmax_t   saver;
+	unsigned long long int 	news;
+	unsigned long long int	pronew;
+	unsigned long long int  saver;
 
-	if (n < 0)
-	{
-        (n <= INTMAX_MIN) ? 0 : ft_put_count('-', base);
-		saver = n * (-1);
-	}
-    saver = (uintmax_t)n;
+//	if (n < 0)
+//	{
+//        (n <= UINT64_MAX) ? 0 : ft_put_count('-', base);
+//		saver = n * (-1);
+//	}
+    saver = n;
 	if (n == 0 || saver == 0)
 	{
 		ft_put_count('0', base);
@@ -331,12 +343,12 @@ void	ft_putnbr(intmax_t n, t_printf *base)
 
 void    get_unint_u(t_printf *base)
 {
-    uintmax_t	n;
+    unsigned long long int	n;
 
     base->negnum = 0;
     if (base->length & F_LONG || base->length & F_LONG2)
-        n = (base->length & F_LONG2) ? ((uintmax_t)va_arg(base->first_arg, unsigned long long)) :
-            ((uintmax_t)va_arg(base->first_arg, unsigned long));
+        n = (base->length & F_LONG2) ? ((unsigned long long int)va_arg(base->first_arg, unsigned long long int)) :
+            ((unsigned long long int)va_arg(base->first_arg, unsigned long long int));
     else if (base->length & F_SHORT || base->length & F_SHORT2)
         n = (base->length & F_SHORT2) ? (uintmax_t)((unsigned char)va_arg(base->first_arg, unsigned int)) :
             (uintmax_t)((unsigned short int)va_arg(base->first_arg, unsigned int));
@@ -457,25 +469,105 @@ void    ft_putwstring_mod(t_printf *base, wchar_t *octet)
     base->m_content = base->m_content + base->skip;
 }
 
+void      ft_putstr_count_w(char *s, t_printf *base)
+{
+	while (*s != '\0' && (base->precision-- && base->nbr_wd_len--))
+		ft_put_count(*s++, base);
+}
+
+
 void    ft_putstring_mod(t_printf *base, char *octet)
 {
-    int 	tmpl;
-    int 	tmpl_nul;
+	if (base->width > base->precision && base->width > base->nbr_wd_len)
+	{
+		base->width -= (base->precision < base->nbr_wd_len && base->precision != -1) ? base->precision : base->nbr_wd_len;
+		if (base->precision > base->nbr_wd_len)
+			base->precision -= base->nbr_wd_len;
+		else if (base->precision == base->nbr_wd_len && base->precision != -1)
+			base->nbr_wd_len = base->precision;
+		if (!(base->flag & F_MINUS)) {
+			while (base->width-- > 0)
+				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+			while (base->precision > base->nbr_wd_len && base->nbr_wd_len != 0) {
+				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+				base->precision--;
+			}
+		}
+		ft_putstr_count_w(octet, base);
+		if (base->flag & F_MINUS){
+			while (base->width-- > 0)
+				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+			while (base->precision > base->nbr_wd_len && base->nbr_wd_len != 0) {
+				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+				base->precision--;
+			}
+		}
+	}
+	else
+	{
+		if ((base->precision < base->nbr_wd_len) && (base->precision > 0)) {
+			base->width -= base->precision;
+			while (base->width-- > 0)
+				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+			base->nbr_wd_len = base->precision;
+		}
+		if (base->precision > base->width)
+		{
+			base->width -= base->nbr_wd_len;
+			while (base->width-- > 0)
+				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+		}
+		ft_putstr_count_w(octet, base);
+	}
 
-    tmpl_nul = base->width - base->nbr_wd_len;
 
-    (base->width > base->nbr_wd_len) ? (tmpl = base->width - base->nbr_wd_len) : (tmpl = 0);
-    (base->flag & F_MINUS || base->flag & F_ZERO) ? 0 : ft_padding_space(tmpl, base);
-    if (tmpl_nul > 0 && (base->flag & F_ZERO) && !(base->flag & F_MINUS))
-        while (tmpl_nul--)
-            ft_put_count('0', base);
-    ft_putstr_count(octet, base);
-    (base->flag & F_MINUS && !(base->flag & F_SPACE)) ? ft_padding_space(tmpl, base) : 0;
-    if (base->nbr_wd_len < base->width)
-        base->size_teml = base->width;
-    if (base->nbr_wd_len > base->width)
-        base->size_teml = base->nbr_wd_len;
-    base->m_content = base->m_content + base->skip;
+//	if (base->precision >= base->nbr_wd_len)
+//	{
+//		base->width -= (base->nbr_wd_len != 0) ? base->precision : 1;
+//		if (!(base->flag & F_MINUS)) {
+//			while (base->width-- >= 0)
+//				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+//		}
+//		ft_putstr_count_w(octet, base);
+//		if (base->flag & F_MINUS)
+//		{
+//			while (base->width-- >= 0)
+//				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+//		}
+//	}
+//	if (base->nbr_wd_len > base->precision)
+//	{
+//		base->width -= ((base->precision < base->nbr_wd_len) && base->precision > 0) ? base->precision : base->nbr_wd_len;
+//		if (!(base->flag & F_MINUS)) {
+//			while (base->width-- > 0)
+//				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+//		}
+//		ft_putstr_count_w(octet, base);
+//		if (base->flag & F_MINUS)
+//		{
+//			while (base->width-- > 0)
+//				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
+//		}
+//	}
+
+
+//    int 	tmpl;
+//    int 	tmpl_nul;
+//
+//    tmpl_nul = base->width - base->nbr_wd_len;
+//
+//    (base->width > base->nbr_wd_len) ? (tmpl = base->width - base->nbr_wd_len) : (tmpl = 0);
+//    (base->flag & F_MINUS || base->flag & F_ZERO) ? 0 : ft_padding_space(tmpl, base);
+//    if (tmpl_nul > 0 && (base->flag & F_ZERO) && !(base->flag & F_MINUS))
+//        while (tmpl_nul--)
+//            ft_put_count('0', base);
+//    ft_putstr_count(octet, base);
+//    (base->flag & F_MINUS && !(base->flag & F_SPACE)) ? ft_padding_space(tmpl, base) : 0;
+//    if (base->nbr_wd_len < base->width)
+//        base->size_teml = base->width;
+//    if (base->nbr_wd_len > base->width)
+//        base->size_teml = base->nbr_wd_len;
+//    base->m_content = base->m_content + base->skip;
 }
 
 
@@ -490,6 +582,8 @@ void    out_put_string(t_printf *base)
         chr = va_arg(base->first_arg, wchar_t*);
     else
         chrt = va_arg(base->first_arg, char*);
+    if ((chr == NULL) && (chrt == NULL))
+    	chrt = "(null)";
     (chr != NULL) ? (base->nbr_wd_len = s_s_bits_lens(chr)) : (base->nbr_wd_len = ft_strlen(chrt));
     (chr != NULL) ? ft_putwstring_mod(base, chr) : ft_putstring_mod(base, chrt);
 }
@@ -508,8 +602,8 @@ void	out_results(t_printf *base)
 		ft_oct_out_put(base);
     else if (base->specifier == 'c')
 		out_put_char(base);
-//	else if (base->specifier == 's')
-//		out_put_string(base);
+	else if (base->specifier == 's')
+		out_put_string(base);
 //	else if (new->type == 'p')
 //		showptr(new, va);
 //	rewrite_struct(new);

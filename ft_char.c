@@ -11,8 +11,8 @@ void    ft_putchar_mod(t_printf *base, unsigned int octet)
     (base->flag & F_MINUS || base->flag & F_ZERO) ? 0 : ft_padding_space(tmpl, base);
     if (tmpl_nul > 0 && (base->flag & F_ZERO) && !(base->flag & F_MINUS))
         while (tmpl_nul--)
-            write(1, "0", 1);
-    ft_putwchar(octet);
+            ft_put_count('0', base);
+    ft_putw_count(octet, base);
     (base->flag & F_MINUS && !(base->flag & F_SPACE)) ? ft_padding_space(tmpl, base) : 0;
     base->m_content = base->m_content + base->skip;
 }

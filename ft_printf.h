@@ -124,6 +124,8 @@ typedef struct		s_printf
 }			t_printf;
 
 
+int     ft_abs(int nbr, t_printf *base);
+
 int     ft_printf(char *fmt, ...);
 int 	parsing(t_printf *base);
 void	parse_flags(t_printf *base);
@@ -132,7 +134,7 @@ size_t		ft_strlen(const char *s);
 
 void    ft_convert(unsigned long long k, int big_spec, t_printf *base);
 void    ft_hex(unsigned long long k, int sys, int b, t_printf *base);
-int        counthex(long long hex, int sys);
+int        counthex(long long int hex, int sys);
 
 void    ft_hex_out_put(t_printf *base);
 
@@ -157,11 +159,13 @@ void		ft_padding_zero(int times, t_printf *base);
 int        counthex(long long hex, int sys);
 
 /*----------------Digit out put----------*/
-void	ft_putnbr(intmax_t n, t_printf *base);
+void	ft_putnbr(unsigned long long int n, t_printf *base);
 
 /*-------------------- d i --------------*/
-void	ft_putnbr_mod(t_printf *base, intmax_t nbr);
+void	ft_putnbr_mod(t_printf *base, unsigned long long int nbr);
 void	ft_putnbr_prec(t_printf *base, intmax_t nbr);
 
+/*-------------------- c --------------*/
+void      ft_putw_count(char a, t_printf *base);
 
 #endif

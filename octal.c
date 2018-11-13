@@ -42,7 +42,7 @@ void    ft_go_oct(t_printf *base, unsigned long long num) {
                 while (base->width > 0 && base->width--)
                     ft_put_count(' ', base);
             (base->flag & F_SHARP) ? ft_put_count('0', base) : 0;
-            if (base->precision != 0)
+            if ((base->precision != 0 && !(base->flag & F_SHARP)) || num > 0)
                 ft_hex(num, 8, base->heigh, base);
         } else {
             if (base->precision != 0) {
@@ -52,7 +52,6 @@ void    ft_go_oct(t_printf *base, unsigned long long num) {
             while (base->width > 0 && base->width--)
                 ft_put_count(' ', base);
         }
-
     }
 }
 

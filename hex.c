@@ -103,7 +103,7 @@ void    ft_hex(unsigned long long k, int sys, int b, t_printf *base)
         ft_convert(k % (unsigned long long)sys, b, base);
 }
 
-int        counthex(long long hex, int sys)
+int        counthex(long long int hex, int sys)
 {
     int i;
 

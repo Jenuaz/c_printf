@@ -15,10 +15,14 @@ void	ft_putchar(char c)
         write(1, &c, 3);
 }
 
+void      ft_putw_count(char a, t_printf *base)
+{
+    base->sizeReturn++;
+    ft_putwchar(a);
+}
+
 void	ft_putwchar(wchar_t wc)
 {
-
-
     if (wc <= 127)
         ft_putchar(wc);
     else if (wc <= 2047)
