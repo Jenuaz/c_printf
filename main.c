@@ -8,29 +8,43 @@
 #define ULONG_MAX  18446744073709551615
 int main(void)
 {
-    printf("%10s\n", "this");
-    ft_printf("%10s\n", "this");
+    setlocale(LC_ALL, "en_US.UTF-8");
+    printf("%S\n", L"Á±≥");
+    ft_printf("%S\n", L"Á±≥");
+//
+//    printf("%C\n", L'ÁM-^L´');
+//    ft_printf("%C\n", L'ÁM-^L´');
+//
+//    double i;
+//    i = 200;
+////
+//    printf("%p\n", &i);
+  //  ft_printf("%llx", i);
 
-    printf("%s\n", "abc");
-    ft_printf("%s\n", "abc");
-
-    printf("%-5.2s\n", "");
-    ft_printf("%-5.2s\n", "");
-
-    printf("%5.2s\n", "this");
-    ft_printf("%5.2s\n", "this");
-
-    printf("%5.2s\n", "this");
-    ft_printf("%5.2s\n", "this");
-
-    printf("%15.4s\n", "42");
-    ft_printf("%15.4s\n", "42");
-
-    printf("%15.4s\n", "42 is the answer");
-    ft_printf("%15.4s\n", "42 is the answer");
-
-    printf("%4.15s\n", "42");
-    ft_printf("%4.15s\n", "42");
+//    char *string = "string";
+//    printf("%10s\n", "this");
+//    ft_printf("%10s\n", "this");
+//
+//    printf("%s\n", "abc");
+//    ft_printf("%s\n", "abc");
+//
+//    printf("%-5.2s\n", "");
+//    ft_printf("%-5.2s\n", "");
+//
+//    printf("%5.2s\n", "this");
+//    ft_printf("%5.2s\n", "this");
+//
+//    printf("%5.2s\n", "this");
+//    ft_printf("%5.2s\n", "this");
+//
+//    printf("%15.4s\n", "42");
+//    ft_printf("%15.4s\n", "42");
+//
+//    printf("%15.4s\n", "42 is the answer");
+//    ft_printf("%15.4s\n", "42 is the answer");
+//
+//    printf("%4.15s\n", "42");
+//    ft_printf("%4.15s\n", "42");
 //
 //    printf("@moulitest: %s\n", NULL);
 //    ft_printf("@moulitest: %s\n", NULL);
@@ -40,7 +54,7 @@ int main(void)
 //
 //    printf("%1.3s\n", "this");
 //    ft_printf("%1.3s\n", "this");
-
+//
 //    printf("%.s\n", "this");
 //    ft_printf("%.s\n", "this");
 //    printf("{%*d}\n", -5, 42);
@@ -48,37 +62,34 @@ int main(void)
 //
 //    printf("{%3*d}\n", 0, 0);
 //    ft_printf("{%3*d}\n", 0, 0);
-
+//
 //
 //    printf("{%.*s}\n", 0, "42");
 //    ft_printf("{%.*s}\n", 0, "42");
-
+//
 //
 //    printf("%#.o\n", 42);
 //    ft_printf("%#.o\n", 42);
-
+//
 //    printf("%lu, %lu\n", 0, ULONG_MAX);
 //    ft_printf("%lu, %lu\n", 0, ULONG_MAX);
-
+//
 //    printf("%lo, %lo\n", 0, ULONG_MAX);
 //    ft_printf("%lo, %lo\n", 0, ULONG_MAX);
-
-
+//
+//
 //
 //    printf("{% 03d}\n", 0);
 //    ft_printf("{% 03d}\n", 0);
-// char *string = "string";
-
-//    ft_printf("%s %s", NULL, string);
-//    printf("%d", printf("%s", NULL));
-
+//
+//
 //    ft_printf("%c\n", 42);
 //    printf("%c\n", 42);
 //    ft_printf("%5c\n", 42);
 //    printf("%5c\n", 42);
 //    ft_printf("%-5c\n", 42);
 //    printf("%-5c\n", 42);
-
+//
 //    ft_printf("%c\n", 0);
 //    printf("%c\n", 0);
 //    ft_printf("%2c\n", 0);
