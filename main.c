@@ -1,25 +1,25 @@
 #include "ft_printf.h"
 #include <locale.h>
 
-
 /*Flags done:   '+', '-', '*', 'sp', '0'      */
 /*Specificators: 'd', 'i'                     */
 
 #define ULONG_MAX  18446744073709551615
-int main(void)
+int main(int ac, char **av)
 {
+    printf("%s", av[1]);
     setlocale(LC_ALL, "en_US.UTF-8");
-    printf("%S\n", L"Á±≥");
-    ft_printf("%S\n", L"Á±≥");
+//    printf("%S\n", 4.2);
+ //   ft_printf("%S\n", 4.2);
 //
 //    printf("%C\n", L'ÁM-^L´');
 //    ft_printf("%C\n", L'ÁM-^L´');
 //
-//    double i;
-//    i = 200;
-////
-//    printf("%p\n", &i);
-  //  ft_printf("%llx", i);
+    double i;
+    i = 200;
+
+    printf("%p\n", &i);
+  	ft_printf("%llx", &i);
 
 //    char *string = "string";
 //    printf("%10s\n", "this");

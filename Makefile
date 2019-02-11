@@ -6,13 +6,21 @@
 #    By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/10 20:11:40 by ylisyak           #+#    #+#              #
-#    Updated: 2018/09/03 22:20:41 by ylisyak          ###   ########.fr        #
+#    Updated: 2018/11/29 04:21:57 by ylisyak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-SRC = parsing.c ft_printf.c hex.c ft_put_count.c ft_put_char.c octal.c ft_char.c ft_digits_di.c
+SRC = parsing.c \
+	  ft_printf.c \
+	  hex.c \
+	  ft_put_count.c \
+	  ft_put_char.c \
+	  octal.c \
+	  ft_char.c \
+	  ft_digits_di.c \
+	  ft_pointer_address.c 
 
 HEADER = ft_printf.h
 

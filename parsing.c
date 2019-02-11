@@ -1,23 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/11/29 04:31:32 by ylisyak           #+#    #+#             */
+/*   Updated: 2018/11/29 04:49:02 by ylisyak          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int     ft_abs(int nbr, t_printf *base)
+int			ft_abs(int nbr, t_printf *base)
 {
-    if (nbr < 0) {
-        base->flag |= F_MINUS;
-        nbr *= -1;
-    }
-    return (nbr);
+	if (nbr < 0)
+	{
+		base->flag |= F_MINUS;
+		nbr *= -1;
+	}
+	return (nbr);
 }
 
-int		ft_tolower(int c)
+int			ft_tolower(int c)
 {
 	if (c >= 65 && c <= 90)
 		return (c + 32);
 	return (c);
 }
 
-int	ft_strchr(const char *s, int c)
+int			ft_strchr(const char *s, int c)
 {
 	while (*s != (char)c && *s != '\0')
 		s++;
@@ -26,17 +38,17 @@ int	ft_strchr(const char *s, int c)
 	return (0);
 }
 
-int		ft_isdigit(int c)
+int			ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-int        ft_atoi_s(const char *str)
+int			ft_atoi_s(const char *str)
 {
-	int        ng;
-	int        count;
+	int		ng;
+	int		count;
 
 	count = 0;
 	while (*str == 32 || *str == '\n' || (*str >= 9  && *str <= 13))
@@ -52,10 +64,10 @@ int        ft_atoi_s(const char *str)
 	return ((ng == 1) ? (count * (-1)) : (count));
 }
 
-int        ft_atoi(const char *str, int *skip)
+int			ft_atoi(const char *str, int *skip)
 {
-	int        ng;
-	int        count;
+	int		ng;
+	int		count;
 
 	count = 0;
 	while (*str == 32 || *str == '\n' || (*str >= 9  && *str <= 13))
@@ -72,7 +84,7 @@ int        ft_atoi(const char *str, int *skip)
 	return ((ng == 1) ? (count * (-1)) : (count));
 }
 
-int 	uni_dig_fill(char **s, t_printf *base)
+int 		uni_dig_fill(char **s, t_printf *base)
 {
 	int     numb;
 	int     skip;
@@ -80,54 +92,61 @@ int 	uni_dig_fill(char **s, t_printf *base)
 	skip = 0;
 	numb = ft_atoi(*s, &skip);
 	*s += skip;
-	if (**s == '*') {
-        numb = (ft_abs(va_arg(base->first_arg, int), base));
-        *s += 1;
-    }
+	if (**s == '*')
+	{
+		numb = (ft_abs(va_arg(base->first_arg, int), base));
+		*s += 1;
+	}
 	return (numb);
 }
 
-
-
-int ft_review(char **s, t_printf *base)
+int			ft_review(char **s, t_printf *base)
 {
-	int     i;
+	int		i;
 
 	i = 0;
 	if (base->warg == 0)
 		base->warg = ft_atoi(*s, &i);
 	(*s) = *s + i;
-	if (**s == '$') {
+	if (**s == '$')
 		return (0);
-	}
 	else
 		while (i--)
 			(*s)--;
 	return (1);
 }
 
-
-void	help_fill_recogn(t_printf *base)
+void		ft_not_dot(t_printf *base)
 {
-	if (TYPESTO(*base->m_content) && (ft_isdigit(*base->m_content) || *base->m_content == 46 || *base->m_content == '*') && SIZE_F(*base->m_content))
+	if (*(base->m_content) != 46) 
 	{
-        if (*(base->m_content) != 46) {
-            if ((ft_isdigit(*base->m_content) || (*base->m_content == '*'))  && ft_review(&base->m_content, base))
-                (*base->m_content == '*') ? (base->width = ft_abs(va_arg(base->first_arg, int), base))
-                                          : (base->width = uni_dig_fill(&base->m_content, base));
-            (base->m_content != '\0' && *base->m_content == '*') ? (void)(*base->m_content++) : 0;
-        }
-        if (*(base->m_content) == 46) {
-            base->m_content++;
-            if ((ft_isdigit(*base->m_content) || (*base->m_content == '*')) && base->precision == -1) {
-                (*base->m_content == '*') ? (base->precision = (int)va_arg(base->first_arg, int))
+       	if ((ft_isdigit(*base->m_content) || (*base->m_content == '*'))  && ft_review(&base->m_content, base))
+			(*base->m_content == '*') ? (base->width = ft_abs(va_arg(base->first_arg, int), base))
+    			                     : (base->width = uni_dig_fill(&base->m_content, base));
+			(base->m_content != '\0' && *base->m_content == '*') ? (void)(*base->m_content++) : 0;
+	}
+	if (*(base->m_content) == 46) 
+	{
+		base->m_content++;
+        if ((ft_isdigit(*base->m_content) || (*base->m_content == '*')) && base->precision == -1)
+		{
+			(*base->m_content == '*') ? (base->precision = (int)va_arg(base->first_arg, int))
                                           : (base->precision = uni_dig_fill(&base->m_content, base));
                 (base->m_content != '\0' && *base->m_content == '*') ? (void)(*base->m_content++) : 0;
             }
             else
                 base->precision = 0;
-        }
-		help_fill_recogn(base);
+    }
+}
+
+void		help_fill_recogn(t_printf *base)
+{
+	if (TYPESTO(*base->m_content) && (ft_isdigit(*base->m_content) || \
+	*base->m_content == 46 || *base->m_content == '*') && \
+	SIZE_F(*base->m_content))
+	{
+		
+       		help_fill_recogn(base);
 	}
 }
 
