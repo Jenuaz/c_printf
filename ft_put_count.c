@@ -8,6 +8,12 @@ void      ft_putstr_count(char *s, t_printf *base)
 
 void      ft_put_count(char a, t_printf *base)
 {
-    base->sizeReturn++;
-    ft_putchar(a);
+    (base->sizeReturn) += 1;
+    ft_putchar(a, base);
+}
+
+void	ft_put_count_buffer(char *str, t_printf *base, int size)
+{
+	base->sizeReturn += size;
+	write(1, str, size);
 }

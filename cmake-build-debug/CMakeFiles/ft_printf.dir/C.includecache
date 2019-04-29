@@ -6,7 +6,41 @@
 
 #IncludeRegexTransform: 
 
+/Users/ylisyak/Documents/printf/ft_char_char.c
+ft_printf.h
 /Users/ylisyak/Documents/printf/ft_printf.h
+
+/Users/ylisyak/Documents/printf/ft_char_string.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
+
+/Users/ylisyak/Documents/printf/ft_digits_di.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
+
+/Users/ylisyak/Documents/printf/ft_digits_hex.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
+
+/Users/ylisyak/Documents/printf/ft_digits_o.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
+
+/Users/ylisyak/Documents/printf/ft_percent.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
+
+/Users/ylisyak/Documents/printf/ft_pointer.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
+
+/Users/ylisyak/Documents/printf/ft_printf.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
+
+/Users/ylisyak/Documents/printf/ft_printf.h
+strings.h
+-
 stdio.h
 -
 stdarg.h
@@ -24,9 +58,19 @@ stdlib.h
 stddef.h
 -
 
+/Users/ylisyak/Documents/printf/ft_put_char.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
+
+/Users/ylisyak/Documents/printf/ft_put_count.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
+
 /Users/ylisyak/Documents/printf/main.c
 ft_printf.h
 /Users/ylisyak/Documents/printf/ft_printf.h
-locale.h
--
+
+/Users/ylisyak/Documents/printf/parsing.c
+ft_printf.h
+/Users/ylisyak/Documents/printf/ft_printf.h
 

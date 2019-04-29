@@ -6,21 +6,23 @@
 #    By: ylisyak <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/10 20:11:40 by ylisyak           #+#    #+#              #
-#    Updated: 2018/11/29 04:21:57 by ylisyak          ###   ########.fr        #
+#    Updated: 2019/04/28 16:53:55 by ylisyak          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-SRC = parsing.c \
-	  ft_printf.c \
-	  hex.c \
-	  ft_put_count.c \
-	  ft_put_char.c \
-	  octal.c \
-	  ft_char.c \
-	  ft_digits_di.c \
-	  ft_pointer_address.c 
+SRC = parsing.c         \
+      ft_printf.c       \
+      ft_char_char.c    \
+      ft_char_string.c  \
+      ft_digits_di.c    \
+      ft_digits_hex.c   \
+      ft_digits_o.c     \
+      ft_percent.c      \
+      ft_pointer.c      \
+      ft_put_char.c     \
+      ft_put_count.c    \
 
 HEADER = ft_printf.h
 
@@ -36,13 +38,12 @@ $(NAME): $(OBJ)
 	ranlib $(NAME)
 
 clean:
-	rm -f $(OBJ)
+	rm -Rf $(OBJ)
 
-fclean: clean
-	rm -f $(NAME)
+fclean: 
+	rm -Rf $(NAME)
+	rm -Rf $(OBJ)
 
 re: fclean all
 
-.PHONY: all clean fclean re libft
-
-.NOTPARALLEL: all clean fclean re libft
+.PHONY: all clean fclean re

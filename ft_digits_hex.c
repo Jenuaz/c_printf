@@ -65,21 +65,26 @@ void    ft_hex_out_put(t_printf *base)
 {
     unsigned long long 	n;
 
-    if (base->length & F_SIZE_T)
+    if (base->length & F_SIZE_T && base->specifier != 'p')
         n = (ssize_t)va_arg(base->first_arg, unsigned long long);
-    else if (base->length & F_INTMAX)
+    else if (base->length & F_INTMAX && base->specifier != 'p')
         n = (uintmax_t)va_arg(base->first_arg, unsigned long long);
-    else if (base->length & F_LONG2)
+    else if (base->length & F_LONG2 && base->specifier != 'p')
         n = va_arg(base->first_arg, unsigned long long);
-    else if (base->length & F_LONG)
+    else if (base->length & F_LONG && base->specifier != 'p')
         n = (unsigned long)va_arg(base->first_arg, unsigned long long);
-    else if (base->length & F_SHORT)
+    else if (base->length & F_SHORT && base->specifier != 'p')
         n = (unsigned short)va_arg(base->first_arg, unsigned long long);
-    else if (base->length & F_SHORT2)
+    else if (base->length & F_SHORT2 && base->specifier != 'p')
         n = (unsigned char)va_arg(base->first_arg, unsigned long long);
-    else
-        n = (unsigned int)va_arg(base->first_arg, unsigned long long);
-
+    else {
+        if (base->specifier != 'p')
+            n = (unsigned int) va_arg(base->first_arg, unsigned long long);
+        else {
+            n = (unsigned long long) va_arg(base->first_arg, unsigned long long);
+            base->flag |= F_SHARP;
+        }
+        }
     ft_go_hex(base, n);
 }
 

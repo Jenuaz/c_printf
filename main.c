@@ -1,26 +1,112 @@
 #include "ft_printf.h"
-#include <locale.h>
-
-/*Flags done:   '+', '-', '*', 'sp', '0'      */
-/*Specificators: 'd', 'i'                     */
 
 #define ULONG_MAX  18446744073709551615
+
 int main(int ac, char **av)
 {
-    printf("%s", av[1]);
-    setlocale(LC_ALL, "en_US.UTF-8");
-//    printf("%S\n", 4.2);
- //   ft_printf("%S\n", 4.2);
+//    printf("{%05.%}", 0);
+//    printf("\n");
+//    ft_printf("{%05.%}", 0);
 //
+//    printf("{%05.s}", 0);
+//    printf("\n");
+//    ft_printf("{%05.s}", 0);
+//
+//    setlocale(LC_ALL, "en_US.UTF-8");
+//    ft_printf("%S", L"Á±≥😇");
+//    printf("%S", L"Á±≥😇");
+//
+//
+//    /*---- Percent test------*/
+//    /*----Test 0-----*/
+//    printf("\33[0;32m\n");
+//    printf("%%");
+//    printf("%d", printf("%%"));
+//    printf("\33[0;31m\n");
+//    ft_printf("%%");
+//    printf("%d", ft_printf("%%"));
+//    /*----Test 1-----*/
+//    printf("\33[0;32m\n");
+//    printf("aa%%bb");
+//    printf("%d", printf("aa%%bb"));
+//    printf("\33[0;31m\n");
+//    ft_printf("aa%%bb");
+//    printf("%d", ft_printf("aa%%bb"));
+//    /*----Test 2----*/
+//    printf("\33[0;32m\n");
+//    printf("%%%%%%%%%%");
+//    printf("\33[0;31m\n");
+//    ft_printf("%%%%%%%%%%");
+//    /*----Test 3---*/
+//    printf("\33[0;32m\n");
+//    printf(".%%.%%.%%.%%.%%.%%.%%.%%.");
+//    printf("\33[0;31m\n");
+//    ft_printf(".%%.%%.%%.%%.%%.%%.%%.%%.");
+//    /*----Test 4---*/
+//    printf("\33[0;32m\n");
+//    printf("%");
+//    printf("\33[0;31m\n");
+//    ft_printf("%");
+//    /*---Test 5---*/
+//    printf("\33[0;32m\n");
+//    printf("% Zoooo");
+//    printf("%d", printf("% Zoooo"));
+//    printf("\33[0;31m\n");
+//    printf("%d", ft_printf("% Zoooo"));
+//    /*---Test 6---*/
+//    printf("\33[0;32m\n");
+//    printf("{%}");
+//    printf("\33[0;31m\n");
+//    ft_printf("{%}");
+//    /*--Test 7---*/
+//    printf("\33[0;32m\n");
+//    printf("%d", printf("{% %}"));
+//    printf("\33[0;31m\n");
+//    printf("%d", ft_printf("{% %}"));
+//
+//
+//    /*---- Pointer test------*/
+    double     i;
+//    /*---- Test 0 ----*/
+//    printf("\33[0;32m\n");
+//    printf("%p", &i);
+//    printf("\33[0;31m\n");
+//    ft_printf("%p", &i);
+//  /*---- Test 1 ---*/
+//    printf("\33[0;32m\n");
+//    printf("%p", 0);
+//    printf("\33[0;31m\n");
+//    ft_printf("%p", 0);
+
+/*----- Hex test ----*/
+//    printf("\n");
+//	printf("%d\n" , ft_printf("Hello how you doing? Tell me more about it. \33[0;31m I wan to know. %s", "this is "	"something"));
+//	printf("%d\n", printf("Hello how you doing? Tell me more about it. \33[0;31m I wan to know. %s", "this is something"));
+//	printf("%d\n", ft_printf("%5%"));
+//	printf("%d", printf("%5%"));
+ //   setlocale(LC_ALL, "en_US.UTF-8");
+//    printf("\n");
+//    printf("%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S",
+//           L"Α α", L"Β β", L"Γ γ", L"Δ δ", L"Ε ε", L"Ζ ζ", L"Η η", L"Θ θ", L"Ι ι", L"Κ κ", L"Λ λ", L"Μ μ",
+//           L"Ν ν", L"Ξ ξ", L"Ο ο", L"Π π", L"Ρ ρ", L"Σ σ", L"Τ τ", L"Υ υ", L"Φ φ", L"Χ χ", L"Ψ ψ", L"Ω ω", L"");
+//    printf("\n");
+//    ft_printf("%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S",
+//           L"Α α", L"Β β", L"Γ γ", L"Δ δ", L"Ε ε", L"Ζ ζ", L"Η η", L"Θ θ", L"Ι ι", L"Κ κ", L"Λ λ", L"Μ μ",
+//           L"Ν ν", L"Ξ ξ", L"Ο ο", L"Π π", L"Ρ ρ", L"Σ σ", L"Τ τ", L"Υ υ", L"Φ φ", L"Χ χ", L"Ψ ψ", L"Ω ω", L"");
+//    printf("%S\n", 4.2);
+//   ft_printf("%S\n", 4.2);
+
 //    printf("%C\n", L'ÁM-^L´');
 //    ft_printf("%C\n", L'ÁM-^L´');
-//
-    double i;
+//    setlocale(LC_ALL, "en_US.UTF-8");
+//    printf("%C\n", L'ÁM-^L´');
+//    ft_printf("%C\n", L'ÁM-^L´');
+
     i = 200;
 
     printf("%p\n", &i);
-  	ft_printf("%llx", &i);
-
+	ft_printf("%p", &i);
+//
 //    char *string = "string";
 //    printf("%10s\n", "this");
 //    ft_printf("%10s\n", "this");
@@ -152,8 +238,8 @@ int main(int ac, char **av)
 //    printf("%+d\n", 0);
 //    printf("%zd\n", -0);
 //    ft_printf("%zd\n", -0);
-// //   ft_printf("%hhd\n", 128);
-////    printf("%hhd\n", 128);
+//    ft_printf("%hhd\n", 128);
+//    printf("%hhd\n", 128);
 //    ft_printf("%hd\n", -32769);
 //    printf("%hd\n", -32769);
 //    ft_printf("%hd\n", 32768);

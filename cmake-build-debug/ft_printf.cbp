@@ -82,10 +82,25 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/ylisyak/Documents/printf/ft_char.c">
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_char_char.c">
+			<Option target="ft_printf"/>
+		</Unit>
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_char_string.c">
 			<Option target="ft_printf"/>
 		</Unit>
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_digits_di.c">
+			<Option target="ft_printf"/>
+		</Unit>
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_digits_hex.c">
+			<Option target="ft_printf"/>
+		</Unit>
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_digits_o.c">
+			<Option target="ft_printf"/>
+		</Unit>
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_percent.c">
+			<Option target="ft_printf"/>
+		</Unit>
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_pointer.c">
 			<Option target="ft_printf"/>
 		</Unit>
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_printf.c">
@@ -100,13 +115,7 @@
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_put_count.c">
 			<Option target="ft_printf"/>
 		</Unit>
-		<Unit filename="/Users/ylisyak/Documents/printf/hex.c">
-			<Option target="ft_printf"/>
-		</Unit>
 		<Unit filename="/Users/ylisyak/Documents/printf/main.c">
-			<Option target="ft_printf"/>
-		</Unit>
-		<Unit filename="/Users/ylisyak/Documents/printf/octal.c">
 			<Option target="ft_printf"/>
 		</Unit>
 		<Unit filename="/Users/ylisyak/Documents/printf/parsing.c">

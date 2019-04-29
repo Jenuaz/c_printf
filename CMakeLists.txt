@@ -8,8 +8,13 @@ add_executable(ft_printf
         ft_printf.h
         main.c
         parsing.c
-        hex.c
+        ft_digits_hex.c
+        ft_digits_o.c
         ft_put_count.c
-        octal.c
         ft_put_char.c
-        ft_char.c ft_digits_di.c)
+        ft_char.c
+        ft_digits_di.c
+        ft_pointer.c
+        ft_char_string.c
+        ft_percent.c
+        ft_char_char.c)

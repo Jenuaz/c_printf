@@ -145,8 +145,8 @@ void		help_fill_recogn(t_printf *base)
 	*base->m_content == 46 || *base->m_content == '*') && \
 	SIZE_F(*base->m_content))
 	{
-		
-       		help_fill_recogn(base);
+        ft_not_dot(base);
+        help_fill_recogn(base);
 	}
 }
 
@@ -158,17 +158,11 @@ int     ft_str_search_from(t_printf *base, char *what)
 	where = base->m_content;
 	while (*where && TYPESTO(*where))
 	{
-		j = 0;
-		while (what[j])
+		j = -1;
+		while (what[++j])
 		{
 			if (*where == what[j])
-			{
-				//where--;
-				//if ((base->check_point_two == 1  (base->flag & F_ZERO && base->width == 0 && base->precision == 0)) && *where != '.')
-					return (j);
-				where++;
-			}
-			j++;
+			    return (j);
 		}
 		where++;
 	}
@@ -199,18 +193,14 @@ void	parse_flags(t_printf *base)
 					(*(base->m_content + 1) == 'l') ? (base->length |= (1 << (base->x + 2))) : (base->length |= (1 << (base->x + 1)));
 				if (*base->m_content == 'h' && !(base->length & F_SHORT2))
                     ((*(base->m_content + 1) == 'h') && !(base->length & F_SHORT)) ? (base->length |= (1 << (base->x + 2))) : (base->length |= (1 << (base->x + 1)));
-//				if (*base->m_content == 'h')
-//					((*(base->m_content + 1) == 'h') && !(base->length & F_SHORT)) ? (base->length |= (1 << (base->x + 1)))
-//																				   : (base->length |= (1 << (base->x + 2)));
 				(*base->m_content == 'j') ? (base->length |= (1 << (base->x + 2))) : 0;
 				(*base->m_content == 'z') ? (base->length |= (1 << (base->x + 2))) : 0;
                 base->m_content++;
 			}
 			continue ;
 		}
-		if (SPEC(*base->m_content)) {
+		if (SPEC(*base->m_content))
 			base->specifier = *base->m_content;
-		}
 		else
 		{
 				--base->width;
@@ -220,26 +210,19 @@ void	parse_flags(t_printf *base)
 				while (base->width-- && base->width >= 0 && (base->flag & F_MINUS))
 					ft_put_count(' ', base);
 		}
-			return ;
+		return ;
 		}
 }
 
 void	corrector_size(t_printf *base) {
     if (ft_strchr("CSDOU", base->specifier)) {
         (base->length & F_LONG) ? (base->length += base->length) : (base->length |= F_LONG);
-        if (base->specifier == 'X')
-            base->heigh = 1;
         base->specifier = ft_tolower(base->specifier);
     }
     if (base->specifier == 'X')
     {
-            base->heigh = 1;
+         base->heigh = 1;
          base->specifier = ft_tolower(base->specifier);
-    }
-    if (base->specifier == 'O')
-    {
-        base->heigh = 1;
-        base->specifier = ft_tolower(base->specifier);
     }
 }
 
@@ -252,12 +235,6 @@ int		ft_padding_space(int times, t_printf *base)
     return (1);
 }
 
-void		ft_padding_zero(int times, t_printf *base)
-{
-	while (times--)
-		ft_put_count('0', base);
-}
-
 size_t		ft_strlen(const char *s)
 {
 	size_t i;
@@ -268,69 +245,17 @@ size_t		ft_strlen(const char *s)
 	return (i);
 }
 
+size_t		ft_strlen_color(const char *s, t_printf *base)
+{
+	size_t i;
 
-	static long long int				itoasize(uintmax_t n)
-	{
-        uintmax_t		i;
-
-		i = 0;
-		while (n >= 1)
-		{
-			n /= 10;
-			i++;
-		}
-		return (i);
-	}
-
-	static long long  int		ifnegative(uintmax_t *dig, t_printf *base, int *len)
-	{
-//		uintmax_t	*newd;
-
-//		if (!(newd = (uintmax_t*)malloc(sizeof(uintmax_t))))
-//			return (0);
-//		if (*dig < 0)
-//		{
-//			*chk = 1;
-//			*newd = (intmax_t)*dig * -1;
-//			*len = itoasize(*newd);
-//			*len += 1;
-//			return (*newd);
-//		}
-        if (*dig == 0)
-		{
-			*len += 1;
-			return (*dig);
-		}
-		else
-		{
-			*len = itoasize(*dig);
-            (base->x == 1) ? (*len += 1) : 0;
-			return (*dig);
-		}
-	}
-
-	char					*ft_itoa(uintmax_t n, t_printf *base)
-	{
-		char			*str;
-		int				lens;
-		long long  int	g;
-        uintmax_t	d;
-
-		lens = 0;
-		d = ifnegative(&n, base,  &lens);
-		if (!(str = (char *)malloc(sizeof(char) * (lens + 1))))
-			return (NULL);
-		str[lens] = '\0';
-		while (lens > 0)
-		{
-			g = d % 10;
-			d = d / 10;
-			str[--lens] = (char)g + '0';
-		}
-		if (base->x == 1)
-			str[lens] = '-';
-		return (str);
-	}
+	i = 0;
+	while (*s++)
+		i++;
+	base->sizeReturn += i;
+    (void)*base->m_content++;
+	return (i);
+}
 
 void	ft_putnbr(unsigned long long int n, t_printf *base)
 {
@@ -338,11 +263,6 @@ void	ft_putnbr(unsigned long long int n, t_printf *base)
 	unsigned long long int	pronew;
 	unsigned long long int  saver;
 
-//	if (n < 0)
-//	{
-//        (n <= UINT64_MAX) ? 0 : ft_put_count('-', base);
-//		saver = n * (-1);
-//	}
     saver = n;
 	if (n == 0 || saver == 0)
 	{
@@ -354,7 +274,7 @@ void	ft_putnbr(unsigned long long int n, t_printf *base)
 	pronew = pronew / 10;
 	if (pronew != 0)
 		ft_putnbr(pronew, base);
-	ft_putchar((char)news + '0');
+	ft_putchar((char)news + '0', base);
 	base->sizeReturn++;
 }
 
@@ -381,259 +301,33 @@ void    get_unint_u(t_printf *base)
     ft_putnbr_mod(base, n);
 }
 
-/*---------------- PARSE FROM ARGS DIGIT && INTEGER---------------*/
-
-
-void	get_int_di(t_printf *base)
-{
-	intmax_t	n;
-
-	base->negnum = 0;
-	if (base->length & F_LONG || base->length & F_LONG2)
-		n = (base->length & F_LONG2) ? ((intmax_t)va_arg(base->first_arg, long long)) :
-			((intmax_t)va_arg(base->first_arg, long));
-	else if (base->length & F_SHORT || base->length & F_SHORT2)
-		n = (base->length & F_SHORT2) ? (intmax_t)((signed char)va_arg(base->first_arg, int)) :
-			(intmax_t)((short int)va_arg(base->first_arg, int));
-	else if (base->length & F_INTMAX)
-		n = (va_arg(base->first_arg, intmax_t));
-	else if (base->length & F_SIZE_T)
-		n = ((size_t)va_arg(base->first_arg, ssize_t));
-	else
-		n = ((intmax_t)va_arg(base->first_arg, int));
-	if (n < 0) {
-		base->negnum = 1;
-		n *= (-1);
-		base->nbr_wd_len = counthex(n, 10);
-        //(n <= INTMAX_MIN) ? (base->nbr_wd_len = ft_strlen(ft_itoa(spec = n * (-1), base))) : (base->nbr_wd_len = ft_strlen(ft_itoa((n *= -1), base)));
-	}
-	else
-		base->nbr_wd_len = counthex(n, 10);
-   	ft_putnbr_mod(base, n);
-}
-
-
-
-/*---------------------------- OUT_PUT_CHAR ---------------------*/
-
-int     s_c_bits_lens(unsigned int nbr)
-{
-    int     i;
-
-    i = 0;
-    while (nbr > 0) {
-        nbr /= 2;
-        i++;
-    }
-    if (i<= 7) {
-        i = 1;
-    } else if (i <= 11) {
-        i = 2;
-    } else if (i <= 16) {
-        i = 3;
-    } else {
-        i = 4;
-    }
-    return (i);
-}
-
-
 /*---------------------------------------------------------------*/
-/*---------------------------- OUT_PUT_STRING -------------------*/
-
-
-void    ft_putwstr(wchar_t *chare)
-{
-    while (*chare)
-        ft_putwchar(*chare++);
-}
-
-int     s_s_bits_lens(wchar_t *str)
-{
-    unsigned int    i;
-    unsigned int    d;
-
-    d = 0;
-    i = 0;
-    while (*str)
-    {
-        i = (unsigned int)*str;
-        if ((i < 9 || i > 13) && i != 32)
-            d += s_c_bits_lens(i);
-        else
-            d = d + 1;
-        str++;
-    }
-    return (d);
-}
-
-void    ft_putwstring_mod(t_printf *base, wchar_t *octet)
-{
-    int 	tmpl;
-    int 	tmpl_nul;
-
-    tmpl_nul = base->width - base->nbr_wd_len;
-
-    (base->width > base->nbr_wd_len) ? (tmpl = base->width - base->nbr_wd_len) : (tmpl = 0);
-    (base->flag & F_MINUS || base->flag & F_ZERO) ? 0 : ft_padding_space(tmpl, base);
-    if (tmpl_nul > 0 && (base->flag & F_ZERO) && !(base->flag & F_MINUS))
-        while (tmpl_nul--)
-            ft_put_count('0', base);
-    ft_putwstr(octet);
-    (base->flag & F_MINUS && !(base->flag & F_SPACE)) ? ft_padding_space(tmpl, base) : 0;
-    if (base->nbr_wd_len < base->width)
-        base->size_teml = base->width;
-    if (base->nbr_wd_len > base->width)
-        base->size_teml = base->nbr_wd_len;
-    base->m_content = base->m_content + base->skip;
-}
-
-void      ft_putstr_count_w(char *s, t_printf *base)
-{
-	while (*s != '\0' && (base->precision-- && base->nbr_wd_len--))
-		ft_put_count(*s++, base);
-}
-
-
-void    ft_putstring_mod(t_printf *base, char *octet)
-{
-	if (base->width > base->precision && base->width > base->nbr_wd_len)
-	{
-		base->width -= (base->precision < base->nbr_wd_len && base->precision != -1) ? base->precision : base->nbr_wd_len;
-		if (base->precision > base->nbr_wd_len)
-			base->precision -= base->nbr_wd_len;
-		else if (base->precision == base->nbr_wd_len && base->precision != -1)
-			base->nbr_wd_len = base->precision;
-		if (!(base->flag & F_MINUS)) {
-			while (base->width-- > 0)
-				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
-			while (base->precision > base->nbr_wd_len && base->nbr_wd_len != 0) {
-				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
-				base->precision--;
-			}
-		}
-		ft_putstr_count_w(octet, base);
-		if (base->flag & F_MINUS){
-			while (base->width-- > 0)
-				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
-			while (base->precision > base->nbr_wd_len && base->nbr_wd_len != 0) {
-				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
-				base->precision--;
-			}
-		}
-	}
-	else
-	{
-		if ((base->precision < base->nbr_wd_len) && (base->precision > 0)) {
-			base->width -= base->precision;
-			while (base->width-- > 0)
-				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
-			base->nbr_wd_len = base->precision;
-		}
-		if (base->precision > base->width)
-		{
-			base->width -= base->nbr_wd_len;
-			while (base->width-- > 0)
-				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
-		}
-		ft_putstr_count_w(octet, base);
-	}
-
-
-//	if (base->precision >= base->nbr_wd_len)
-//	{
-//		base->width -= (base->nbr_wd_len != 0) ? base->precision : 1;
-//		if (!(base->flag & F_MINUS)) {
-//			while (base->width-- >= 0)
-//				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
-//		}
-//		ft_putstr_count_w(octet, base);
-//		if (base->flag & F_MINUS)
-//		{
-//			while (base->width-- >= 0)
-//				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
-//		}
-//	}
-//	if (base->nbr_wd_len > base->precision)
-//	{
-//		base->width -= ((base->precision < base->nbr_wd_len) && base->precision > 0) ? base->precision : base->nbr_wd_len;
-//		if (!(base->flag & F_MINUS)) {
-//			while (base->width-- > 0)
-//				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
-//		}
-//		ft_putstr_count_w(octet, base);
-//		if (base->flag & F_MINUS)
-//		{
-//			while (base->width-- > 0)
-//				(base->flag & F_ZERO) ? ft_put_count('0', base) : ft_put_count(' ', base);
-//		}
-//	}
-
-
-//    int 	tmpl;
-//    int 	tmpl_nul;
-//
-//    tmpl_nul = base->width - base->nbr_wd_len;
-//
-//    (base->width > base->nbr_wd_len) ? (tmpl = base->width - base->nbr_wd_len) : (tmpl = 0);
-//    (base->flag & F_MINUS || base->flag & F_ZERO) ? 0 : ft_padding_space(tmpl, base);
-//    if (tmpl_nul > 0 && (base->flag & F_ZERO) && !(base->flag & F_MINUS))
-//        while (tmpl_nul--)
-//            ft_put_count('0', base);
-//    ft_putstr_count(octet, base);
-//    (base->flag & F_MINUS && !(base->flag & F_SPACE)) ? ft_padding_space(tmpl, base) : 0;
-//    if (base->nbr_wd_len < base->width)
-//        base->size_teml = base->width;
-//    if (base->nbr_wd_len > base->width)
-//        base->size_teml = base->nbr_wd_len;
-//    base->m_content = base->m_content + base->skip;
-}
-
-
-void    out_put_string(t_printf *base)
-{
-    wchar_t *chr;
-    char    *chrt;
-
-    chr = NULL;
-    chrt = NULL;
-    if (base->length & F_LONG)
-        chr = va_arg(base->first_arg, wchar_t*);
-    else
-        chrt = va_arg(base->first_arg, char*);
-    if ((chr == NULL) && (chrt == NULL))
-    	chrt = "(null)";
-    (chr != NULL) ? (base->nbr_wd_len = s_s_bits_lens(chr)) : (base->nbr_wd_len = ft_strlen(chrt));
-    (chr != NULL) ? ft_putwstring_mod(base, chr) : ft_putstring_mod(base, chrt);
-}
-
-/*---------------------------------------------------------------*/
-
-void	out_results(t_printf *base)
-{
-	if (base->specifier == 'i' || base->specifier == 'd')
-		get_int_di(base);
-  	else if (base->specifier == 'u' || base->specifier == 'U')
-		get_unint_u(base);
-    else if (base->specifier == 'x')
-        ft_hex_out_put(base);
-	else if (base->specifier == 'o')
-		ft_oct_out_put(base);
-    else if (base->specifier == 'c')
-		out_put_char(base);
-	else if (base->specifier == 's')
-		out_put_string(base);
-//	else if (new->type == 'p')
-//		showptr(new, va);
-//	rewrite_struct(new);
-}
 
 int	parsing(t_printf *base)
 {
+    int                 i;
+    int                 etalon;
+    t_operators         out_put[] =
+            {
+                    {'i', get_int_di},
+                    {'d', get_int_di},
+                    {'u', get_unint_u},
+                    {'x', ft_hex_out_put},
+                    {'o', ft_oct_out_put},
+                    {'c', out_put_char},
+                    {'s', out_put_string},
+                    {'%', out_put_percent},
+                    {'p', out_put_pointer}
+            };
+
+    i = -1;
 	base->flag = 0;
 	parse_flags(base);
 	corrector_size(base);
-	out_results(base);
+    etalon = (int)(sizeof(out_put)/ sizeof(out_put[0]));
+    while (++i < etalon)
+        if (base->specifier == out_put[i].out_put_function)
+            out_put[i].fn(base);
     return (base->size_teml);
 }
 

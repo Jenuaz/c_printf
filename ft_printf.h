@@ -1,6 +1,7 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+# include <strings.h>
 # include <stdio.h>
 # include <stdarg.h>
 # include <unistd.h>
@@ -10,58 +11,54 @@
 # include <stdlib.h>
 # include <stddef.h>
 
-
-#define  VALID(x) x == 's' || x == 'S' || x == 'p' || x == 'd' || x == 'D' || x == 'i' || x == 'o' || x == 'O' \
-|| x == 'u' || x == 'U' || x == 'x' || x == 'X' || x == 'c' || x == 'C' || x == ' ' || x == 'l' || \
- x == 'h' || x == 'j' || x == 'z' || (x >= '0' && x <= '9') || x == 'h'\
- || x == '.' || x == '$' || x == '+' ||  x == '#' || x == '-' || x == '*'
+#define	 BUFFER 10
+#define  BUFFER_P 512
 
 #define  FLAGS(x) x == '0' || x == '+' || x == '-' \
     || x == ' ' || x == '#'
 
-#define  SIZE(x) x == 'h' || x == 'l' || \
-            x == 'j' || x == 'z'
+#define  SIZE(x) x == 'h' || x == 'l' || x == 'j' || x == 'z'
 
 #define  SIZE_F(x) x != 'h' && x != 'l' && x != 'j' && x != 'z'
 
-#define  SPEC(x) x == 'd' || x == 'i' || x == 'c' \
-    || x == 's' || x == 'o' || x == 'x' \
-    || x == 'X' || x == 'p' || x == 'D' \
-    || x == 'u' || x == 'U' || x == 'O' \
-    || x == 'C' || x == 'S'
+#define  SPEC(x)  x == 'i' \
+               || x == 'D' || x == 'C' || x == 'O'|| x == 'X' || x == 'S' \
+               || x == 'd' || x == 'c' ||x == 'o' || x == 'x' || x == 's' \
+               || x == 'u' || x == 'U'  \
+               || x == '%' || x == 'p'
 
-#define  TYPET(x) x == 's' || x == 'S' || x == 'p' || x == 'd' || x == 'D' || x == 'i' || x == 'o' || x == 'O' \
-|| x == 'u' || x == 'U' || x == 'x' || x == 'X' || x == 'c' || x == 'C' || x == '\0' || x == '%'
-
-#define  TYPESTO(x) x != 's' && x != 'S' && x != 'p' && x != 'd' && x != 'D' && x != 'i' && x != 'o' && x != 'O' \
-&& x != 'u' && x != 'U' && x != 'x' && x != 'X' && x != 'c' && x != 'C' && x != '\n' && x != '%'
-
-#define  VALID_P(x) x == ' ' || x == 'l' || x == 'h' || x == 'j' || x == 'z' || (x >= '0' && x <= '9') || x == 'h'\
- || x == '.' || x == '$' || x == '+' ||  x == '#' || x == '-' || x == '*'
-
-#define CHR_VAL(x) x = (unsigned int)x;
-
-#define MAX_NEGATIVE -9223372036854775808
+#define  TYPESTO(x) x != 's' && x != 'c' && x != 'o' && x != 'x' && x != 'u' && x != 'd' &&  x != 'i' && x != 'p'  \
+                 && x != 'S' && x != 'C' && x != 'O' && x != 'X' && x != 'U' && x != 'D' && x != '\n' && x != '%'
 
 /*
 ** ----------------------------------------- Masks ---------------------------------------------------------
 */
 
-# define F_SHARP		(1 << 0)               //  #
-# define F_SPACE		(1 << 1)               //  sp
-# define F_PLUS			(1 << 2)               //  +
-# define F_MINUS		(1 << 3)               //  -
-# define F_ZERO			(1 << 4)               //  0
+# define    F_SHARP		 (1 << 0)               //  #
+# define    F_SPACE		 (1 << 1)               //  sp
+# define    F_PLUS		 (1 << 2)               //  +
+# define    F_MINUS		 (1 << 3)               //  -
+# define    F_ZERO	     (1 << 4)               //  0
 
-/*----------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------ SIZES --------------------------------------------------------*/
 /*                                                          d i                   u o x X                   */
-# define F_LONG			(1 << 5)               //  l     (long int)           (unsigned long int)          32
-# define F_LONG2		(1 << 6)               //  ll    (long long int)      (unsigned long long int)     64
-# define F_SHORT		(1 << 7)               //  h     (short  int)                                      128
-# define F_SHORT2		(1 << 8)               //  hh    (signed char)                                     256
-# define F_INTMAX		(1 << 9)               //  j     (intmax_t)                                        512
-# define F_SIZE_T		(1 << 10)              //  z     (size_t)                                          1024
+# define    F_LONG		 (1 << 5)               //  l     (long int)         (unsigned long int)       32
+# define    F_LONG2		 (1 << 6)               //  ll    (long long int)    (unsigned long long int)  64
+# define    F_SHORT	     (1 << 7)               //  h     (short  int)                                 128
+# define    F_SHORT2     (1 << 8)               //  hh    (signed char)                                256
+# define    F_INTMAX     (1 << 9)               //  j     (intmax_t)                                   512
+# define    F_SIZE_T     (1 << 10)              //  z     (size_t)                                     1024
 
+/*-------------------------------------- Specifier -----------------------------------------------------*/
+
+#define     S_INT        (1 << 0)              //  integer or digit
+#define     S_UINT       (1 << 1)              //  unsigned int
+#define     S_HEX        (1 << 2)              //  heximal
+#define     S_OCT        (1 << 3)              //  octal
+#define     S_CHR        (1 << 4)              //  char
+#define     S_STR        (1 << 5)              //  string
+#define     S_PRC        (1 << 6)              //  percent
+#define     S_PTR        (1 << 7)              //  pointer
 
 /*-------------------------------------- COLOR MASKS -----------------------------------------------------*/
 
@@ -70,7 +67,7 @@
 # define    GREEN       "\33[0;32m"	//Green
 # define    B_GREEN     "\33[1;32m"	//Bold Green
 # define    YELLOW      "\33[0;33m"	//Yellow
-# define    B_YELLOW    "\33[01;33m" //Bold Yellow
+# define    B_YELLOW    "\33[01;33m"//Bold Yellow
 # define    BLUE        "\33[0;34m"	//Blue
 # define    B_BLUE      "\33[1;34m"	//Bold Blue
 # define    MAGENTA     "\33[0;35m"	//Magenta
@@ -88,8 +85,6 @@
 
 /*----------------------------------------------------------------------------------------------------------*/
 
-
-
 # define F_MIN_LEN		(1 << 13)
 # define F_APP_PRECI	(1 << 14)
 # define F_POINTER		(1 << 15)
@@ -98,50 +93,63 @@
 
 /*-----------------------------------------------------------------------------------------------------------*/
 
-typedef struct		s_printf
+typedef struct		    s_printf
 {
 /*----- section for $ line manipulation -----*/
-    va_list		first_arg;
-    va_list		itera_arg;
+    va_list	        	first_arg;
+    va_list		        itera_arg;
 /*-------------------------------------------*/
-	short		flag;
-	short		length;
-	int			width;
-	int			precision;                   // boolean
-    int         skip;
-	int 		x;
-    int         check_point;
-    int         check_point_two;
-	char		*m_content;
-    int         heigh;
-	int 		nbr_wd_len;                 // length of word or nbr
-	int         negnum;
+	short	        	flag;
+	short		        length;
+	int	                width;
+	int	                precision;                   // boolean
+    int                 skip;
+	int                 x;
+    int                 check_point;
+    int                 check_point_two;
+	char                *m_content;
+    int                 heigh;
+	int                 nbr_wd_len;                 // length of word or nbr
+	int                 negnum;
+    int	                warg;                       // $
+    int                 sizeReturn;
+    int                 size_teml;
+	char                specifier;
+	int                 buffer_p_counter;
+	char                str[BUFFER_P];
+}			            t_printf;
 
-    int			warg;                       // $
-    int         sizeReturn;
-    int         size_teml;
-	char		specifier;
-}			t_printf;
+/*----------------------------------------- Key value --------------------------------------------------------*/
+
+typedef struct          s_operators
+{
+    int                 out_put_function;
+    void                (*fn)(t_printf*);
+}                       t_operators;
+
+
+
 
 
 int     ft_abs(int nbr, t_printf *base);
-
 int     ft_printf(char *fmt, ...);
 int 	parsing(t_printf *base);
-void	parse_flags(t_printf *base);
+void    parse_flags(t_printf *base);
 int     ft_strlens(char *str);
-size_t		ft_strlen(const char *s);
+size_t  ft_strlen(const char *s);
+size_t	ft_strlen_color(const char *s, t_printf *base);
 
 void    ft_convert(unsigned long long k, int big_spec, t_printf *base);
 void    ft_hex(unsigned long long k, int sys, int b, t_printf *base);
-int        counthex(long long int hex, int sys);
+int     counthex(long long int hex, int sys);
 
 void    ft_hex_out_put(t_printf *base);
 
+void	ft_put_count_buffer(char *str, t_printf *base, int size);
 void    ft_putstr_count(char *s, t_printf *base);
 void    ft_put_count(char a, t_printf *base);
-void	ft_putwchar(wchar_t wc);
-void	ft_putchar(char c);
+void	ft_putwchar(wchar_t wc, t_printf *base);
+void	ft_putchar(char c, t_printf *base);
 
 void    ft_go_oct(t_printf *base, unsigned long long num);
 void    ft_oct_out_put(t_printf *base);
@@ -150,13 +158,10 @@ void    ft_oct_out_put(t_printf *base);
 /*----------------OUTPUT CHAR-----------*/
 void	out_put_char(t_printf *base);
 void    ft_putchar_mod(t_printf *base, unsigned int octet);
-
-
 int     s_c_bits_lens(unsigned int nbr);
-
 int		ft_padding_space(int times, t_printf *base);
-void		ft_padding_zero(int times, t_printf *base);
-int        counthex(long long hex, int sys);
+void    ft_padding_zero(int times, t_printf *base);
+int     counthex(long long hex, int sys);
 
 /*----------------Digit out put----------*/
 void	ft_putnbr(unsigned long long int n, t_printf *base);
@@ -166,6 +171,35 @@ void	ft_putnbr_mod(t_printf *base, unsigned long long int nbr);
 void	ft_putnbr_prec(t_printf *base, intmax_t nbr);
 
 /*-------------------- c --------------*/
-void      ft_putw_count(char a, t_printf *base);
+void    ft_putw_count(char a, t_printf *base);
 
+/*-------------------- p --------------*/
+void    out_put_pointer(t_printf *base);
+/*-------------------- s --------------*/
+void    out_put_string(t_printf *base);
+
+int     out_put_space_or_zero(t_printf *base);
+void    ft_hex_precision(t_printf *base, unsigned long long num);
+void    out_put_percent(t_printf *base);
+
+
+
+void	get_int_di(t_printf *base);
 #endif
+
+
+
+//#define  VALID(x) x == 's' || x == 'S' || x == 'p' || x == 'd' || x == 'D' || x == 'i' || x == 'o' || x == 'O' \
+//|| x == 'u' || x == 'U' || x == 'x' || x == 'X' || x == 'c' || x == 'C' || x == ' ' || x == 'l' || \
+// x == 'h' || x == 'j' || x == 'z' || (x >= '0' && x <= '9') || x == 'h'\
+// || x == '.' || x == '$' || x == '+' ||  x == '#' || x == '-' || x == '*'
+//
+//#define  TYPET(x) x == 's' || x == 'S' || x == 'p' || x == 'd' || x == 'D' || x == 'i' || x == 'o' || x == 'O' \
+//|| x == 'u' || x == 'U' || x == 'x' || x == 'X' || x == 'c' || x == 'C' || x == '\0' || x == '%'
+//
+//#define  VALID_P(x) x == ' ' || x == 'l' || x == 'h' || x == 'j' || x == 'z' || (x >= '0' && x <= '9') || x == 'h'\
+// || x == '.' || x == '$' || x == '+' ||  x == '#' || x == '-' || x == '*'
+//
+//#define CHR_VAL(x) x = (unsigned int)x;
+//
+//#define MAX_NEGATIVE -9223372036854775808
