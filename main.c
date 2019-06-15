@@ -4,6 +4,11 @@
 
 int main(int ac, char **av)
 {
+
+
+  //  printf("%lf\n", 0.1234);
+    ft_printf("%lf", 0.1234);
+
 //    printf("{%05.%}", 0);
 //    printf("\n");
 //    ft_printf("{%05.%}", 0);
@@ -102,10 +107,10 @@ int main(int ac, char **av)
 //    printf("%C\n", L'ÁM-^L´');
 //    ft_printf("%C\n", L'ÁM-^L´');
 
-    i = 200;
-
-    printf("%p\n", &i);
-	ft_printf("%p", &i);
+//    i = 200;
+//
+//    printf("%p\n", &i);
+//	ft_printf("%p", &i);
 //
 //    char *string = "string";
 //    printf("%10s\n", "this");

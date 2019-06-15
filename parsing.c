@@ -169,7 +169,6 @@ int     ft_str_search_from(t_printf *base, char *what)
 	return (-1);
 }
 
-
 void	parse_flags(t_printf *base)
 {
 	while (1)
@@ -309,17 +308,17 @@ int	parsing(t_printf *base)
     int                 etalon;
     t_operators         out_put[] =
             {
-                    {'i', get_int_di},
-                    {'d', get_int_di},
-                    {'u', get_unint_u},
                     {'x', ft_hex_out_put},
                     {'o', ft_oct_out_put},
-                    {'c', out_put_char},
                     {'s', out_put_string},
-                    {'%', out_put_percent},
-                    {'p', out_put_pointer}
+                    {'p', out_put_pointer},
+                    {'i', get_int_di},
+                    {'d', get_int_di},
+                    {'f', out_put_flow},
+                    {'u', get_unint_u},
+                    {'c', out_put_char},
+                    {'%', out_put_percent}
             };
-
     i = -1;
 	base->flag = 0;
 	parse_flags(base);

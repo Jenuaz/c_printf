@@ -25,10 +25,12 @@
                || x == 'D' || x == 'C' || x == 'O'|| x == 'X' || x == 'S' \
                || x == 'd' || x == 'c' ||x == 'o' || x == 'x' || x == 's' \
                || x == 'u' || x == 'U'  \
-               || x == '%' || x == 'p'
+               || x == '%' || x == 'p'  \
+               || x == 'f'
 
 #define  TYPESTO(x) x != 's' && x != 'c' && x != 'o' && x != 'x' && x != 'u' && x != 'd' &&  x != 'i' && x != 'p'  \
-                 && x != 'S' && x != 'C' && x != 'O' && x != 'X' && x != 'U' && x != 'D' && x != '\n' && x != '%'
+                 && x != 'S' && x != 'C' && x != 'O' && x != 'X' && x != 'U' && x != 'D' && x != '\n' && x != '%'  \
+                 && x != 'f'
 
 /*
 ** ----------------------------------------- Masks ---------------------------------------------------------
@@ -121,13 +123,24 @@ typedef struct		    s_printf
 
 /*----------------------------------------- Key value --------------------------------------------------------*/
 
+typedef union   fldd
+{
+    float       f;
+    double      d;
+    long double ld;
+}               fldd;
+
 typedef struct          s_operators
 {
     int                 out_put_function;
     void                (*fn)(t_printf*);
 }                       t_operators;
 
-
+typedef struct          s_unioner
+{
+    int                 out_put_function;
+    void                (*fn)(fldd, t_printf*);
+}                       t_unioner;
 
 
 
@@ -169,7 +182,8 @@ void	ft_putnbr(unsigned long long int n, t_printf *base);
 /*-------------------- d i --------------*/
 void	ft_putnbr_mod(t_printf *base, unsigned long long int nbr);
 void	ft_putnbr_prec(t_printf *base, intmax_t nbr);
-
+/*-------------------- f --------------*/
+void    out_put_flow(t_printf *base);
 /*-------------------- c --------------*/
 void    ft_putw_count(char a, t_printf *base);
 

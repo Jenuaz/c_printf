@@ -258,6 +258,33 @@ ft_digits_o.c.s:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_digits_o.c.s
 .PHONY : ft_digits_o.c.s
 
+ft_flow_f.o: ft_flow_f.c.o
+
+.PHONY : ft_flow_f.o
+
+# target to build an object file
+ft_flow_f.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_flow_f.c.o
+.PHONY : ft_flow_f.c.o
+
+ft_flow_f.i: ft_flow_f.c.i
+
+.PHONY : ft_flow_f.i
+
+# target to preprocess a source file
+ft_flow_f.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_flow_f.c.i
+.PHONY : ft_flow_f.c.i
+
+ft_flow_f.s: ft_flow_f.c.s
+
+.PHONY : ft_flow_f.s
+
+# target to generate assembly for a file
+ft_flow_f.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_flow_f.c.s
+.PHONY : ft_flow_f.c.s
+
 ft_percent.o: ft_percent.c.o
 
 .PHONY : ft_percent.o
@@ -471,6 +498,9 @@ help:
 	@echo "... ft_digits_o.o"
 	@echo "... ft_digits_o.i"
 	@echo "... ft_digits_o.s"
+	@echo "... ft_flow_f.o"
+	@echo "... ft_flow_f.i"
+	@echo "... ft_flow_f.s"
 	@echo "... ft_percent.o"
 	@echo "... ft_percent.i"
 	@echo "... ft_percent.s"

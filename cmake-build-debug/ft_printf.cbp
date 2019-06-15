@@ -97,6 +97,9 @@
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_digits_o.c">
 			<Option target="ft_printf"/>
 		</Unit>
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_flow_f.c">
+			<Option target="ft_printf"/>
+		</Unit>
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_percent.c">
 			<Option target="ft_printf"/>
 		</Unit>

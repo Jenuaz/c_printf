@@ -73,6 +73,5 @@ void    ft_oct_out_put(t_printf *base)
         n = (unsigned char)va_arg(base->first_arg, unsigned long long);
     else
         n = (unsigned int)va_arg(base->first_arg, unsigned long long);
-
     ft_go_oct(base, n);
 }
