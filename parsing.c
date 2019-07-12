@@ -186,17 +186,17 @@ void	parse_flags(t_printf *base)
 			help_fill_recogn(base);
 			continue ;
 		}
-		if (SIZE(*base->m_content)) {
+		if (SIZE(*base->m_content) || *base->m_content == 'L') {
 			while ((base->x = (ft_str_search_from(base, "lhjz") + 5)) > -1 && *base->m_content && SIZE(*base->m_content)) {
 				if (*base->m_content == 'l' && !(base->length & F_LONG))
-					(*(base->m_content + 1) == 'l') ? (base->length |= (1 << (base->x + 2))) : (base->length |= (1 << (base->x + 1)));
+					(*(base->m_content + 1) == 'l') ? (base->length |= (1 << (base->x + 1))) : (base->length |= (1 << (base->x)));
 				if (*base->m_content == 'h' && !(base->length & F_SHORT2))
                     ((*(base->m_content + 1) == 'h') && !(base->length & F_SHORT)) ? (base->length |= (1 << (base->x + 2))) : (base->length |= (1 << (base->x + 1)));
 				(*base->m_content == 'j') ? (base->length |= (1 << (base->x + 2))) : 0;
 				(*base->m_content == 'z') ? (base->length |= (1 << (base->x + 2))) : 0;
-                base->m_content++;
+                (base->length == 64) ? (base->m_content+=2) : (base->m_content++);
 			}
-			continue ;
+            (*base->m_content == 'L' && base->m_content++) ? (base->length |= (1 << 6)) : 0;
 		}
 		if (SPEC(*base->m_content))
 			base->specifier = *base->m_content;
@@ -325,8 +325,10 @@ int	parsing(t_printf *base)
 	corrector_size(base);
     etalon = (int)(sizeof(out_put)/ sizeof(out_put[0]));
     while (++i < etalon)
-        if (base->specifier == out_put[i].out_put_function)
+        if (base->specifier == out_put[i].out_put_function) {
             out_put[i].fn(base);
+            break;
+        }
     return (base->size_teml);
 }
 

@@ -5,10 +5,13 @@
 int main(int ac, char **av)
 {
 
+	(void)ac;
+	(void)av;
+    //printf("%lf\n", 0.1234);
+    ft_printf("%f", 0.1234);
+   //printf("{%f}{%lf}{%Lf}", 1.42, 1.42, 1.42l);
 
-  //  printf("%lf\n", 0.1234);
-    ft_printf("%lf", 0.1234);
-
+    //ft_printf("{%f}{%lf}{%Lf}", 1.42, 1.42, 1.42l);
 //    printf("{%05.%}", 0);
 //    printf("\n");
 //    ft_printf("{%05.%}", 0);
@@ -71,7 +74,7 @@ int main(int ac, char **av)
 //
 //
 //    /*---- Pointer test------*/
-    double     i;
+//    double     i;
 //    /*---- Test 0 ----*/
 //    printf("\33[0;32m\n");
 //    printf("%p", &i);

@@ -130,6 +130,15 @@ typedef union   fldd
     long double ld;
 }               fldd;
 
+typedef struct          s_custom_f
+{
+    fldd                src;
+    int                 sign : 1;
+    int                 exponent;
+    int                 mantisa;
+}                       t_custom_f;
+
+
 typedef struct          s_operators
 {
     int                 out_put_function;
@@ -139,9 +148,8 @@ typedef struct          s_operators
 typedef struct          s_unioner
 {
     int                 out_put_function;
-    void                (*fn)(fldd, t_printf*);
+    void                (*fn)(t_custom_f, t_printf*);
 }                       t_unioner;
-
 
 
 int     ft_abs(int nbr, t_printf *base);

@@ -41,9 +41,8 @@ $(NAME): $(OBJ)
 clean:
 	rm -Rf $(OBJ)
 
-fclean: 
+fclean: clean
 	rm -Rf $(NAME)
-	rm -Rf $(OBJ)
 
 re: fclean all
 
