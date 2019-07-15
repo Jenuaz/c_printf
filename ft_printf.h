@@ -15,7 +15,7 @@
 #define  BUFFER_P 512
 
 #define  FLAGS(x) x == '0' || x == '+' || x == '-' \
-    || x == ' ' || x == '#'
+               || x == ' ' || x == '#'
 
 #define  SIZE(x) x == 'h' || x == 'l' || x == 'j' || x == 'z'
 
@@ -53,14 +53,14 @@
 
 /*-------------------------------------- Specifier -----------------------------------------------------*/
 
-#define     S_INT        (1 << 0)              //  integer or digit
-#define     S_UINT       (1 << 1)              //  unsigned int
-#define     S_HEX        (1 << 2)              //  heximal
-#define     S_OCT        (1 << 3)              //  octal
-#define     S_CHR        (1 << 4)              //  char
-#define     S_STR        (1 << 5)              //  string
-#define     S_PRC        (1 << 6)              //  percent
-#define     S_PTR        (1 << 7)              //  pointer
+#define     S_INT        (1 << 0)               //  integer or digit
+#define     S_UINT       (1 << 1)               //  unsigned int
+#define     S_HEX        (1 << 2)               //  heximal
+#define     S_OCT        (1 << 3)               //  octal
+#define     S_CHR        (1 << 4)               //  char
+#define     S_STR        (1 << 5)               //  string
+#define     S_PRC        (1 << 6)               //  percent
+#define     S_PTR        (1 << 7)               //  pointer
 
 /*-------------------------------------- COLOR MASKS -----------------------------------------------------*/
 
@@ -134,8 +134,10 @@ typedef struct          s_custom_f
 {
     fldd                src;
     int                 sign : 1;
+    int                 width_exp;
     int                 exponent;
     int                 mantisa;
+    int                 mantisa_length;
 }                       t_custom_f;
 
 
@@ -181,7 +183,7 @@ void	out_put_char(t_printf *base);
 void    ft_putchar_mod(t_printf *base, unsigned int octet);
 int     s_c_bits_lens(unsigned int nbr);
 int		ft_padding_space(int times, t_printf *base);
-void    ft_padding_zero(int times, t_printf *base);
+int     ft_padding_zero(int times, t_printf *base);
 int     counthex(long long hex, int sys);
 
 /*----------------Digit out put----------*/
@@ -203,10 +205,20 @@ void    out_put_string(t_printf *base);
 int     out_put_space_or_zero(t_printf *base);
 void    ft_hex_precision(t_printf *base, unsigned long long num);
 void    out_put_percent(t_printf *base);
-
-
+/*-------------------- f --------------*/
 
 void	get_int_di(t_printf *base);
+/*------------------- Exponent ------------------*/
+void    extract_exponent_f(t_custom_f *digit, t_printf *base);
+void    extract_exponent_d(t_custom_f *digit, t_printf *base);
+/*------------------ Mantissa -------------------*/
+void    extract_mantissa_f(t_custom_f *digit, t_printf *base);
+void    extract_mantissa_d(t_custom_f *digit, t_printf *base);
+/*------------------- math -----------*/
+int     roundcustomf(float num);
+int     roundcustomd(float num);
+int     pow(long long int digit, int degree);
+
 #endif
 
 

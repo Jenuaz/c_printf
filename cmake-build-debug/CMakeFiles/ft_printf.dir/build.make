@@ -226,6 +226,45 @@ CMakeFiles/ft_printf.dir/ft_flow_f.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ft_printf.dir/ft_flow_f.c.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ylisyak/Documents/printf/ft_flow_f.c -o CMakeFiles/ft_printf.dir/ft_flow_f.c.s
 
+CMakeFiles/ft_printf.dir/ft_flow_exponent.c.o: CMakeFiles/ft_printf.dir/flags.make
+CMakeFiles/ft_printf.dir/ft_flow_exponent.c.o: ../ft_flow_exponent.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/ft_printf.dir/ft_flow_exponent.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ft_printf.dir/ft_flow_exponent.c.o   -c /Users/ylisyak/Documents/printf/ft_flow_exponent.c
+
+CMakeFiles/ft_printf.dir/ft_flow_exponent.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ft_printf.dir/ft_flow_exponent.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ylisyak/Documents/printf/ft_flow_exponent.c > CMakeFiles/ft_printf.dir/ft_flow_exponent.c.i
+
+CMakeFiles/ft_printf.dir/ft_flow_exponent.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ft_printf.dir/ft_flow_exponent.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ylisyak/Documents/printf/ft_flow_exponent.c -o CMakeFiles/ft_printf.dir/ft_flow_exponent.c.s
+
+CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.o: CMakeFiles/ft_printf.dir/flags.make
+CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.o: ../ft_flow_mantissa.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.o   -c /Users/ylisyak/Documents/printf/ft_flow_mantissa.c
+
+CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ylisyak/Documents/printf/ft_flow_mantissa.c > CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.i
+
+CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ylisyak/Documents/printf/ft_flow_mantissa.c -o CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.s
+
+CMakeFiles/ft_printf.dir/ft_math.c.o: CMakeFiles/ft_printf.dir/flags.make
+CMakeFiles/ft_printf.dir/ft_math.c.o: ../ft_math.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/ft_printf.dir/ft_math.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ft_printf.dir/ft_math.c.o   -c /Users/ylisyak/Documents/printf/ft_math.c
+
+CMakeFiles/ft_printf.dir/ft_math.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ft_printf.dir/ft_math.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ylisyak/Documents/printf/ft_math.c > CMakeFiles/ft_printf.dir/ft_math.c.i
+
+CMakeFiles/ft_printf.dir/ft_math.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ft_printf.dir/ft_math.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ylisyak/Documents/printf/ft_math.c -o CMakeFiles/ft_printf.dir/ft_math.c.s
+
 # Object files for target ft_printf
 ft_printf_OBJECTS = \
 "CMakeFiles/ft_printf.dir/ft_printf.c.o" \
@@ -240,7 +279,10 @@ ft_printf_OBJECTS = \
 "CMakeFiles/ft_printf.dir/ft_char_string.c.o" \
 "CMakeFiles/ft_printf.dir/ft_percent.c.o" \
 "CMakeFiles/ft_printf.dir/ft_char_char.c.o" \
-"CMakeFiles/ft_printf.dir/ft_flow_f.c.o"
+"CMakeFiles/ft_printf.dir/ft_flow_f.c.o" \
+"CMakeFiles/ft_printf.dir/ft_flow_exponent.c.o" \
+"CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.o" \
+"CMakeFiles/ft_printf.dir/ft_math.c.o"
 
 # External object files for target ft_printf
 ft_printf_EXTERNAL_OBJECTS =
@@ -258,9 +300,12 @@ ft_printf: CMakeFiles/ft_printf.dir/ft_char_string.c.o
 ft_printf: CMakeFiles/ft_printf.dir/ft_percent.c.o
 ft_printf: CMakeFiles/ft_printf.dir/ft_char_char.c.o
 ft_printf: CMakeFiles/ft_printf.dir/ft_flow_f.c.o
+ft_printf: CMakeFiles/ft_printf.dir/ft_flow_exponent.c.o
+ft_printf: CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.o
+ft_printf: CMakeFiles/ft_printf.dir/ft_math.c.o
 ft_printf: CMakeFiles/ft_printf.dir/build.make
 ft_printf: CMakeFiles/ft_printf.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking C executable ft_printf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ylisyak/Documents/printf/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking C executable ft_printf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ft_printf.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

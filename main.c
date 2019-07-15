@@ -7,8 +7,32 @@ int main(int ac, char **av)
 
 	(void)ac;
 	(void)av;
-    //printf("%lf\n", 0.1234);
-    ft_printf("%f", 0.1234);
+
+	int     tmp;
+
+//	tmp = 23.23;
+    ft_printf("%-010f\n", 1.42);
+    printf("%-010f\n", 1.42);
+
+
+//	ft_printf("%10f\n", 1.42);
+//    printf("%10f\n", 1.42);
+//
+//    ft_printf("%5f\n", 1.42);
+//    printf("%5f\n", 1.42);
+//
+//    ft_printf("%+10.1f\n", 1.42);
+//    printf("%+10.1f\n", 1.42);
+//
+//    ft_printf("%+1.1f\n", 122.42);
+//    printf("%+1.1f\n", 122.42);
+//
+//    ft_printf("%+-10.1f\n", 122.42);
+//    printf("%+-10.1f\n", 122.42);
+    //printf("%f\n", 235.83412);
+  //  printf("%.0f\n", 0.99999);
+
+//    printf("%d", tmp >> 2);
    //printf("{%f}{%lf}{%Lf}", 1.42, 1.42, 1.42l);
 
     //ft_printf("{%f}{%lf}{%Lf}", 1.42, 1.42, 1.42l);

@@ -12,6 +12,9 @@ file(REMOVE_RECURSE
   "CMakeFiles/ft_printf.dir/ft_percent.c.o"
   "CMakeFiles/ft_printf.dir/ft_char_char.c.o"
   "CMakeFiles/ft_printf.dir/ft_flow_f.c.o"
+  "CMakeFiles/ft_printf.dir/ft_flow_exponent.c.o"
+  "CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.o"
+  "CMakeFiles/ft_printf.dir/ft_math.c.o"
   "ft_printf.pdb"
   "ft_printf"
 )

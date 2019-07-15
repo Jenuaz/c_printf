@@ -17,4 +17,4 @@ add_executable(ft_printf
         ft_char_string.c
         ft_percent.c
         ft_char_char.c
-        ft_flow_f.c)
+        ft_flow_f.c ft_flow_exponent.c ft_flow_mantissa.c ft_math.c)

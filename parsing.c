@@ -234,6 +234,13 @@ int		ft_padding_space(int times, t_printf *base)
     return (1);
 }
 
+int		ft_padding_zero(int times, t_printf *base)
+{
+    while (times--)
+        ft_put_count('0', base);
+    return (1);
+}
+
 size_t		ft_strlen(const char *s)
 {
 	size_t i;

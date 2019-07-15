@@ -16,6 +16,15 @@ CMakeFiles/ft_printf.dir/ft_digits_hex.c.o: ../ft_printf.h
 CMakeFiles/ft_printf.dir/ft_digits_o.c.o: ../ft_digits_o.c
 CMakeFiles/ft_printf.dir/ft_digits_o.c.o: ../ft_printf.h
 
+CMakeFiles/ft_printf.dir/ft_flow_exponent.c.o: ../ft_flow_exponent.c
+CMakeFiles/ft_printf.dir/ft_flow_exponent.c.o: ../ft_printf.h
+
+
+CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.o: ../ft_flow_mantissa.c
+CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.o: ../ft_printf.h
+
+CMakeFiles/ft_printf.dir/ft_math.c.o: ../ft_math.c
+CMakeFiles/ft_printf.dir/ft_math.c.o: ../ft_printf.h
 
 CMakeFiles/ft_printf.dir/ft_percent.c.o: ../ft_percent.c
 CMakeFiles/ft_printf.dir/ft_percent.c.o: ../ft_printf.h

@@ -16,7 +16,16 @@ CMakeFiles/ft_printf.dir/ft_digits_hex.c.o
 CMakeFiles/ft_printf.dir/ft_digits_o.c.o
  /Users/ylisyak/Documents/printf/ft_digits_o.c
  /Users/ylisyak/Documents/printf/ft_printf.h
+CMakeFiles/ft_printf.dir/ft_flow_exponent.c.o
+ /Users/ylisyak/Documents/printf/ft_flow_exponent.c
+ /Users/ylisyak/Documents/printf/ft_printf.h
 CMakeFiles/ft_printf.dir/ft_flow_f.c.o
+CMakeFiles/ft_printf.dir/ft_flow_mantissa.c.o
+ /Users/ylisyak/Documents/printf/ft_flow_mantissa.c
+ /Users/ylisyak/Documents/printf/ft_printf.h
+CMakeFiles/ft_printf.dir/ft_math.c.o
+ /Users/ylisyak/Documents/printf/ft_math.c
+ /Users/ylisyak/Documents/printf/ft_printf.h
 CMakeFiles/ft_printf.dir/ft_percent.c.o
  /Users/ylisyak/Documents/printf/ft_percent.c
  /Users/ylisyak/Documents/printf/ft_printf.h

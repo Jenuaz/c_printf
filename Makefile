@@ -23,7 +23,9 @@ SRC = parsing.c         \
       ft_pointer.c      \
       ft_put_char.c     \
       ft_put_count.c    \
-      ft_flow_f.c
+      ft_flow_f.c       \
+      ft_flow_exponent.c \
+      ft_flow_mantissa.c
 
 HEADER = ft_printf.h
 

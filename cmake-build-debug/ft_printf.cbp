@@ -97,7 +97,16 @@
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_digits_o.c">
 			<Option target="ft_printf"/>
 		</Unit>
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_flow_exponent.c">
+			<Option target="ft_printf"/>
+		</Unit>
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_flow_f.c">
+			<Option target="ft_printf"/>
+		</Unit>
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_flow_mantissa.c">
+			<Option target="ft_printf"/>
+		</Unit>
+		<Unit filename="/Users/ylisyak/Documents/printf/ft_math.c">
 			<Option target="ft_printf"/>
 		</Unit>
 		<Unit filename="/Users/ylisyak/Documents/printf/ft_percent.c">
