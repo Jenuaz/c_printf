@@ -217,7 +217,7 @@ void    extract_mantissa_d(t_custom_f *digit, t_printf *base);
 /*------------------- math -----------*/
 int     roundcustomf(float num);
 int     roundcustomd(float num);
-int     pow(long long int digit, int degree);
+int     custom_pow(long long int digit, int degree);
 
 #endif
 

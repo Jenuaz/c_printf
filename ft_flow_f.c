@@ -29,6 +29,7 @@ void    double_out_put(t_custom_f digit, t_printf *base)
 }
 void    long_double_out_put(t_custom_f digit, t_printf *base)
 {
+	(void)base;
     (digit.src.ld < 0) ? (digit.sign = -1) : 0;
   //  extract_exponent();
     printf("%Lf", digit.src.ld);

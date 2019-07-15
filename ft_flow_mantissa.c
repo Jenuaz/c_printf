@@ -13,11 +13,11 @@ void    zero_precision(t_custom_f *digit, t_printf *base)
 void    infinity_precision(t_custom_f *digit, t_printf *base)
 {
     int   tmp;
-    float mantissa;
-
+	float mantissa;
+	(void)base;
     mantissa = digit->src.f - (float)digit->exponent;
     (base->flag & F_PLUS) ? (digit->mantisa_length -= 1) : 0;
-    digit->mantisa = roundcustomf(mantissa * (float)pow(10, base->precision));
+    digit->mantisa = roundcustomf(mantissa * (float)custom_pow(10, base->precision));
     if (base->nbr_wd_len < base->width && !(base->flag & F_MINUS))
         (base->flag & F_ZERO) ? ft_padding_zero(base->width - base->nbr_wd_len, base) : \
                                 ft_padding_space(base->width - base->nbr_wd_len, base);
@@ -35,13 +35,12 @@ void    infinity_precision(t_custom_f *digit, t_printf *base)
 
 void    default_mantissa_value_f(t_custom_f *digit, t_printf *base)
 {
-    int   power;
+    int   custom_power;
     double mantissa_d;
-    float mantissa;
 
-
+	(void)custom_power;
     mantissa_d = (double)digit->src.f - (double)digit->exponent;
-    digit->mantisa = roundcustomf(mantissa_d * (double)pow(10, digit->mantisa_length - 1));
+    digit->mantisa = roundcustomf(mantissa_d * (double)custom_pow(10, digit->mantisa_length - 1));
     if (base->nbr_wd_len < base->width && !(base->flag & F_MINUS))
         (base->flag & F_ZERO) ? ft_padding_zero(base->width - base->nbr_wd_len, base) : ft_padding_space(base->width - base->nbr_wd_len, base);
     (base->nbr_wd_len > 0 && base->width > base->nbr_wd_len) ? \
@@ -54,12 +53,12 @@ void    default_mantissa_value_f(t_custom_f *digit, t_printf *base)
 
 void    default_mantissa_value_d(t_custom_f *digit, t_printf *base)
 {
-    int   power;
+    int   custom_power;
     double mantissa_d;
-    float mantissa;
 
+	(void)custom_power;
     mantissa_d = (double)digit->src.f - (double)digit->exponent;
-    digit->mantisa = roundcustomf(mantissa_d * (double)pow(10, 6));
+    digit->mantisa = roundcustomf(mantissa_d * (double)custom_pow(10, 6));
     (base->nbr_wd_len < base->width) ? ft_padding_space(base->width - base->nbr_wd_len, base) : 0;
     base->width = 0;
     base->precision = -1;
