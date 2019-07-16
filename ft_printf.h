@@ -135,8 +135,8 @@ typedef struct          s_custom_f
     fldd                src;
     int                 sign : 1;
     int                 width_exp;
-    int                 exponent;
-    int                 mantisa;
+    long int            exponent;
+    long int            mantisa;
     int                 mantisa_length;
 }                       t_custom_f;
 
@@ -208,14 +208,23 @@ void    out_put_percent(t_printf *base);
 /*-------------------- f --------------*/
 
 void	get_int_di(t_printf *base);
+
+/*------------------- Zero --------------------*/
+void    zero_precision_f(t_custom_f *digit, t_printf *base);
+void    zero_precision_d(t_custom_f *digit, t_printf *base);
+void    zero_precision_ld(t_custom_f *digit, t_printf *base);
+
 /*------------------- Exponent ------------------*/
 void    extract_exponent_f(t_custom_f *digit, t_printf *base);
 void    extract_exponent_d(t_custom_f *digit, t_printf *base);
+void    extract_exponent_ld(t_custom_f *digit, t_printf *base);
+
 /*------------------ Mantissa -------------------*/
 void    extract_mantissa_f(t_custom_f *digit, t_printf *base);
 void    extract_mantissa_d(t_custom_f *digit, t_printf *base);
+void    extract_mantissa_ld(t_custom_f *digit, t_printf *base);
 /*------------------- math -----------*/
-int     roundcustomf(float num);
+long long     roundcustomf(float num);
 int     roundcustomd(float num);
 int     custom_pow(long long int digit, int degree);
 

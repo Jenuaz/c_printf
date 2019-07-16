@@ -5,13 +5,19 @@
 
 void    ft_bzero_fldd(t_custom_f *digit)
 {
+    digit->src.f = 0.0;
+    digit->src.d = 0.0;
+    digit->src.ld = 0.0;
     digit->exponent = 0;
     digit->mantisa = 0;
 }
 
 void    float_out_put(t_custom_f digit, t_printf *base)
 {
-    (digit.src.f < 0) ? (digit.sign = -1) : 0;
+    if (digit.src.f < 0) {
+        base->negnum = 1;
+        digit.src.f = digit.src.f * (-1);
+    }
     extract_exponent_f(&digit, base);
     base->nbr_wd_len = counthex(digit.exponent, 10);
     (base->precision == -1) ? (digit.mantisa_length = 7) : (digit.mantisa_length = base->precision + 1);
@@ -21,18 +27,23 @@ void    float_out_put(t_custom_f digit, t_printf *base)
 }
 void    double_out_put(t_custom_f digit, t_printf *base)
 {
-    (digit.src.d < 0) ? (digit.sign = -1) : 0;
+    (digit.src.d < 0) ? (base->negnum = 1) && (digit.src.d *= -1): 0;
     extract_exponent_d(&digit, base);
     base->nbr_wd_len = counthex(digit.exponent, 10);
-//    extract_exponent();
-    printf("%lf", digit.src.d);
+    (base->precision == -1) ? (digit.mantisa_length = 7) : (digit.mantisa_length = base->precision + 1);
+    base->nbr_wd_len += digit.mantisa_length;
+    (base->flag & F_PLUS) ? (base->nbr_wd_len++) : 0;
+    extract_mantissa_d(&digit, base);
 }
 void    long_double_out_put(t_custom_f digit, t_printf *base)
 {
-	(void)base;
-    (digit.src.ld < 0) ? (digit.sign = -1) : 0;
-  //  extract_exponent();
-    printf("%Lf", digit.src.ld);
+    (digit.src.ld < 0) ? (base->negnum = 1) && (digit.src.ld *= -1): 0;
+    extract_exponent_ld(&digit, base);
+    base->nbr_wd_len = counthex(digit.exponent, 10);
+    (base->precision == -1) ? (digit.mantisa_length = 7) : (digit.mantisa_length = base->precision + 1);
+    base->nbr_wd_len += digit.mantisa_length;
+    (base->flag & F_PLUS) ? (base->nbr_wd_len++) : 0;
+    extract_mantissa_ld(&digit, base);
 }
 
 
@@ -54,10 +65,10 @@ void    out_put_flow(t_printf *base)
     ft_bzero_fldd(&record);
     if (base->length & F_LONG || base->length & F_LONG2)
         (base->length & F_LONG) ? (record.src.d = ((double)va_arg(base->first_arg, double))) : \
-        (record.src.ld = va_arg(base->first_arg, double));
+        (record.src.ld = va_arg(base->first_arg, long double));
     else
         ((record.src.f = (float)va_arg(base->first_arg, double)));
-    etalon = (int)(sizeof(tupo_funcout_put)/ sizeof(tupo_funcout_put[0]));
+    etalon = (int)(sizeof(tupo_funcout_put)/sizeof(tupo_funcout_put[0]));
     while (++i < etalon)
         if (base->length == tupo_funcout_put[i].out_put_function) {
             tupo_funcout_put[i].fn(record, base);

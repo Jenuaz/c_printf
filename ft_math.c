@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int roundcustomf(float num)
+long long int roundcustomf(float num)
 {
     return num < 0 ? num - 0.5 : num + 0.5;
 }
